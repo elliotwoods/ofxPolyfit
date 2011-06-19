@@ -74,62 +74,6 @@ void FitBase::solve(int I, double *x, unsigned int &nCoefficients) {
 // 'M' gives the number of datapoints in 'points' and 'data'
 //
 ///////////////////////////////////////////////////////////////////////////////
-void FitBase::init(std::vector<std::vector<double> > &points, std::vector<std::vector<double> > &data, int M)
-{
-	const int N = A.jsize();
-	double *bas = new double[N];
-	
-	int n, k;
-	int i, j;
-	
-	// reset lower corner of this matrix
-	for(i = 0; i < N; ++i) {
-		for(j =0; j <= i; ++j) {
-			A(i,j) = 0.0;
-		}
-	}
-	// reset y
-	for(i = 0; i < N; ++i) {
-		for(j =0; j < _outdim; ++j) {
-			y[i][j] = 0.0;
-		}
-	}
-	
-	// Form sums over each datapoint
-	for(k = 0; k<M; ++k) {
-		// Form matrix of bases for this data point
-		for(n = 0; n < N; ++n) {
-			bas[n] = basis(n, points[k]);
-		}
-		
-		// fill in this matrix
-		for(i = 0; i < N; ++i) {
-			for(j =0; j <= i; ++j) {
-				A(i,j) += bas[i]*bas[j];
-			}
-		}
-		
-		// Fill in y values
-		for(i = 0; i<N; ++i) {
-			for(j = 0; j < _outdim; ++j) {
-				y[i][j] += bas[i]*data[k][j];
-			}
-		}
-	}
-	
-	// copy to upper corner
-	for(i = 0; i < N; ++i) {
-		for(j =0; j < i; ++j) {
-			A(j,i) = A(i,j);
-		}
-	}
-	
-	// Decompose A
-	A.LUdecomp(); 
-	
-	delete [] bas;
-}
-
 void FitBase::init(pfitDataSet<DataType> &dataSet)
 {
     const pfitIndex M = dataSet.getActiveIndicesCount();

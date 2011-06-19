@@ -9,3 +9,8 @@ Latest news is that I’ve added a simple RANSAC implementation which lets you f
 
 Currently i'm working on making things more object oriented (e.g. classes for datasets, datapoints, coefficent sets, bases)
 
+
+TODO:
+* update RANSAC to work with new model
+* convert bases to be more flexible / OO / communicable
+* create coeffs class that can save / load, associates with bases

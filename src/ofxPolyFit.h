@@ -49,7 +49,7 @@ public:
 	unsigned int						nBases;
     
     //RANSAC (experimental)
-    void                                RANSAC(double* input, double* output, int nDataPoints, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold);
+    void        RANSAC(double* input, double* output, int nDataPoints, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold);
     
     double bestError;
     set<int> bestConsensus;

@@ -23,7 +23,7 @@ void testApp::setup(){
     mouseX = WIDTH / 2.0f;
     
     nNoisyPoints = 50;
-    nCrappyPoints = 40;
+    nCrappyPoints = 20;
     meanNoiseOnValid = 20.0f;
     
     isAllocated = false;

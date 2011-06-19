@@ -23,11 +23,9 @@ public:
 	
     void                init(pfitDataSet<DataType> &dataSet);
     
-	void				init(std::vector<std::vector<double> > &points, std::vector<std::vector<double> > &data, int M);
 	void				solve(int, double *, unsigned int &nCoefficients);
 	int					nBases() { return _bases; };
-	virtual DataType		basis(int n, pfitDataPoint<DataType> &x) = 0;
-	virtual DataType		basis(int n, std::vector<DataType> &x) = 0;
+	virtual DataType	basis(int n, pfitDataPoint<DataType> &x) = 0;
 	
 	unsigned short		_indim, _outdim;
 

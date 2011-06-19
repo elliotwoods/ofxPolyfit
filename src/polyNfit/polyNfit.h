@@ -22,7 +22,6 @@ public:
 		{
 		};
 
-	DataType		basis(int n, std::vector<DataType> &x);
     DataType		basis(int n, pfitDataPoint<DataType> &x);
 	unsigned short	_order;
 };

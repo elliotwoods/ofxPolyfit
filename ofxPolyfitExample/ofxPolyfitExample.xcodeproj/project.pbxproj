@@ -133,9 +133,9 @@
 		8B2D78B313AE2CC700B2B4D0 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				8B2D78B413AE2CC700B2B4D0 /* Data */,
 				8B2D78B913AE2CC700B2B4D0 /* ofxPolyFit.cpp */,
 				8B2D78BA13AE2CC700B2B4D0 /* ofxPolyFit.h */,
+				8B2D78B413AE2CC700B2B4D0 /* Data */,
 				8B2D78BB13AE2CC700B2B4D0 /* polyNfit */,
 			);
 			name = src;

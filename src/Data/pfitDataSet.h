@@ -39,6 +39,7 @@ class pfitDataPoint
         DataType*   getOutput() const;
         DataType*   getInput();
         DataType*   getOutput();
+    
         bool        getEnabled() const;
         
     protected:
