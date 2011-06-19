@@ -1,0 +1,11 @@
+ofxPolyFit
+
+Fit data between any 2 datasets of arbitrary dimensionality
+
+Just a quick note to introduce ofxPolyfit. It’s an openFrameworks extension which allows you to correlate between any 2 numerical datasets of the same or different dimensionality. e.g. a stereo cam is 2x2D, and you want to get 3D, so you could use ofxPolyfit to create your 4D->3D correlation.
+
+Latest news is that I’ve added a simple RANSAC implementation which lets you filter out good data from poor datasets. This is to be used with our tree projection experiments to filter out bad voxels.
+
+
+Currently i'm working on making things more object oriented (e.g. classes for datasets, datapoints, coefficent sets, bases)
+
