@@ -23,7 +23,7 @@ public:
 	ofxPolyFit();
 	~ofxPolyFit();
 	
-	void		init(int order, int dimensionsIn, int dimensionsOut, int basisType);
+	void		init(int order, int dimensionsIn, int dimensionsOut, pfitBasisType basisType);
 	void        uninitialise();
     
     //perform correlation

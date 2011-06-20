@@ -9,9 +9,9 @@
 
 #include "powerBases.h"
 
-powerBases::powerBases(int basesShape)
+powerBases::powerBases(pfitBasisType basesShape)
 {
-	_basesShape=basesShape;
+	_basesShape = basesShape;
     _renderedNDimensions=0;
     _renderedNPowerOrder=0;
 }

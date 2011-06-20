@@ -12,20 +12,22 @@
 #include <math.h>
 
 
-#define BASIS_SHAPE_TRIANGLE 0
-#define BASIS_SHAPE_SQUARE 1
-#define BASIS_SHAPE_SQUARE_MINUS_HIGHEST 2
-#define BASIS_SHAPE_PADE_FIRST 3
+typedef enum  {
+    BASIS_SHAPE_TRIANGLE = 0,
+    BASIS_SHAPE_SQUARE,
+    BASIS_SHAPE_SQUARE_MINUS_HIGHEST,
+    BASIS_SHAPE_PADE_FIRST
+} pfitBasisType;
 
 
 class powerBases
 {
 public:
-	powerBases(int basesShape);
+	powerBases(pfitBasisType basesShape);
 	int							updateBasisIndicies(int nDimensions, int nPowerOrder);
 
 	std::vector<unsigned int*>	vecBasisIndices;
-	unsigned char				_basesShape; //0=triangle, 1=square
+	pfitBasisType				_basesShape; //0=triangle, 1=square
 	unsigned int				_nBases;
 	
 private:

@@ -23,7 +23,7 @@ ofxPolyFit::~ofxPolyFit()
 		delete _fit;
 }
 
-void ofxPolyFit::init(int order, int dimensionsIn, int dimensionsOut, int basisType)
+void ofxPolyFit::init(int order, int dimensionsIn, int dimensionsOut, pfitBasisType basisType)
 {
 	if (_isInitialised)
 		uninitialise();
@@ -370,7 +370,7 @@ void ofxPolyFit::load(string filename)
 	filein.read((char*) &outdim, 2);
 	filein.read((char*) &basesShape, 1);
     
-    init(order, indim, outdim, basesShape);
+    init(order, indim, outdim, pfitBasisType(basesShape));
     
 	filein.read((char*) &nBases, 4);
 	

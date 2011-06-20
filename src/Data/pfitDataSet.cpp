@@ -193,7 +193,7 @@ void pfitDataSet<DataType>::clear()
 }
 
 template<typename DataType>
-void pfitDataSet<DataType>::resize(pfitIndex size)
+void pfitDataSet<DataType>::resize(pfitIndex const size)
 {
     //save time by only copying relevant points
     //during allocation

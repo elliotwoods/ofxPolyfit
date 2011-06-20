@@ -66,8 +66,8 @@ class pfitDataSet
         
         void    init(int inputDimensions, int outputDimensions, pfitIndex size = 0);
         void    clear();
-        void    resize(unsigned int size);
-        void    allocate(unsigned int const allocation);
+        void    resize(pfitIndex const size);
+        void    allocate(pfitIndex const allocation);
     
         void    wrapData(DataType* x, DataType* y);
     
