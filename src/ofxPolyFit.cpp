@@ -240,7 +240,7 @@ DataType ofxPolyFit::residualSquared(pfitDataPointd const &dataPoint, bool check
     // Evaluate to seperate memory
     ///////////////////////////////
     //
-    DataType outResult[_fit->_outdim];
+    DataType *outResult = new DataType[_fit->_outdim];
     
     pfitDataPoint<DataType> pointResult(_fit->_indim, _fit->_outdim, dataPoint.getInput(), outResult);
     
@@ -266,6 +266,7 @@ DataType ofxPolyFit::residualSquared(pfitDataPointd const &dataPoint, bool check
     //
     ///////////////////////////////
     
+	delete[] outResult;
     return residualall;
     
 }
