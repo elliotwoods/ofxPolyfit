@@ -14,3 +14,4 @@ TODO:
 * update RANSAC to work with new model
 * convert bases to be more flexible / OO / communicable
 * create coeffs class that can save / load, associates with bases
+* use template class

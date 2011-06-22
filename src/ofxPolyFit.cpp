@@ -20,7 +20,12 @@ bestModel(0)
 ofxPolyFit::~ofxPolyFit()
 {
 	if (_isInitialised)
+    {
+        for (int i=0; i<_fit->_outdim; i++)
+            delete[] coefficients[i];
+
 		delete _fit;
+    }
 }
 
 void ofxPolyFit::init(int order, int dimensionsIn, int dimensionsOut, pfitBasisType basisType)
@@ -209,7 +214,7 @@ DataType ofxPolyFit::evaluate(DataType input)
     
 }
 
-DataType ofxPolyFit::residualSquared(pfitDataPointd dataPoint, bool checkData)
+DataType ofxPolyFit::residualSquared(pfitDataPointd const &dataPoint, bool checkData)
 {
     /////////////////////////
     // Check we're ready
@@ -261,9 +266,11 @@ DataType ofxPolyFit::residualSquared(pfitDataPointd dataPoint, bool checkData)
     //
     ///////////////////////////////
     
+    return residualall;
+    
 }
 
-DataType ofxPolyFit::residualRMS(pfitDataSetd dataSet)
+DataType ofxPolyFit::residualRMS(pfitDataSetd const &dataSet)
 {
     /////////////////////////
     // Check we're ready

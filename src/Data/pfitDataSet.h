@@ -8,9 +8,11 @@
 
 #include <vector>
 #include <set>
+#include <sstream>
 
 using namespace std;
 
+//must be an unsigned integer type (e.g. unsigned long)
 typedef unsigned int pfitIndex;
 
 template<typename DataType>
@@ -29,7 +31,7 @@ class pfitDataPoint
     
         void        clearOutput();
     
-        void        throwIfNotReady(int inDimensions, int outDimensions);
+        void        throwIfNotReady(int inDimensions, int outDimensions) const;
     
         //if you want to store inside here
         void        localAllocate();
@@ -41,6 +43,8 @@ class pfitDataPoint
         DataType*   getOutput();
     
         bool        getEnabled() const;
+    
+        string      toString() const;
         
     protected:
         int         _inDimensions;
@@ -63,6 +67,7 @@ class pfitDataSet
         ~pfitDataSet();
     
         pfitDataPoint<DataType> operator[]( pfitIndex i );
+        pfitDataPoint<DataType> operator[]( pfitIndex i ) const;
         
         void    init(int inputDimensions, int outputDimensions, pfitIndex size = 0);
         void    clear();
@@ -72,21 +77,23 @@ class pfitDataSet
         void    wrapData(DataType* x, DataType* y);
     
         //vector style access
-        pfitDataPoint<DataType>     begin();
-        pfitDataPoint<DataType>     end();
+        pfitDataPoint<DataType>     begin() const;
+        pfitDataPoint<DataType>     end() const;
         
         DataType*   getInput();
         DataType*   getOutput();
     
-        void    throwIfNotReady(int inDimensions, int outDimensions, int nBases=0);
+        void    throwIfNotReady(int inDimensions, int outDimensions, int nBases=0) const;
     
-        set<pfitIndex>      getActiveIndices();
-        pfitIndex           getActiveIndicesCount();
+        set<pfitIndex>      getActiveIndices() const;
+        pfitIndex           getActiveIndicesCount() const;
+        
+        string              toString() const;
         
     protected:
         void    deAllocate();
     
-        void    checkAllocated();
+        void    checkAllocated() const;
     
         int         _inDimensions;
         int         _outDimensions;
