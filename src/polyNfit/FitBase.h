@@ -25,7 +25,7 @@ public:
     
 	void				solve(int, double *, unsigned int &nCoefficients);
 	int					nBases() { return _bases; };
-	virtual DataType	basis(int n, pfitDataPoint<DataType> &x) = 0;
+	virtual DataType	basis(int n, pfitDataPoint<DataType> const &x) = 0;
 	
 	unsigned short		_indim, _outdim;
 

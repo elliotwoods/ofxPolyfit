@@ -118,6 +118,7 @@ void FitBase::init(pfitDataSet<DataType> &dataSet)
 		
 		// Fill in y values
         output = point.getOutput();
+        //
 		for(i = 0; i<N; ++i) {
 			for(j = 0; j < _outdim; ++j) {
 				y[i][j] += bas[i] * output[j];

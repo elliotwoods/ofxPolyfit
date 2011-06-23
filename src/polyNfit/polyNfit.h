@@ -22,6 +22,6 @@ public:
 		{
 		};
 
-    DataType		basis(int n, pfitDataPoint<DataType> &x);
+    DataType		basis(int n, pfitDataPoint<DataType> const &x);
 	unsigned short	_order;
 };

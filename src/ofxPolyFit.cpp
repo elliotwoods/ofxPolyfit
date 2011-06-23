@@ -77,7 +77,17 @@ void ofxPolyFit::correlate(pfitDataSetd &dataSet)
         dataSet.throwIfNotReady(_fit->_indim, _fit->_outdim, nBases);
         //
         //////////////////////////////////////////////////////
+
         
+        //////////////////////////////////////////////////////
+        // RECREATE FIT
+        //////////////////////////////////////////////////////
+        //
+        polyNfit *newFit = new polyNfit(_fit->_order, _fit->_indim, _fit->_outdim, _fit->_basesShape);
+        delete _fit;
+        _fit = newFit;
+        //
+        //////////////////////////////////////////////////////
         
         //////////////////////////////////////////////////////
         // PERFORM FIT

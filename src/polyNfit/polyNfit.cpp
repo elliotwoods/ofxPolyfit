@@ -13,7 +13,7 @@
 // --------------------------------------------
 
 
-DataType polyNfit::basis(int n, pfitDataPoint<DataType> &x)
+DataType polyNfit::basis(int n, pfitDataPoint<DataType> const &x)
 {
 	//n denotes the index of the basis that we're working with
 	//for 1D, we just have power x^n
