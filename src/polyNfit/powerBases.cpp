@@ -109,7 +109,7 @@ void powerBases::calcBases()
 		
 		_renderedNDimensions = _nDimensions;
 		_renderedNPowerOrder = _nPowerOrder;
-	} else {
+	}  else if (_basesShape == BASIS_SHAPE_PADE_FIRST )  {
 
 		//
 		// PADE BASES
@@ -155,7 +155,80 @@ void powerBases::calcBases()
 		
 		_renderedNDimensions = _nDimensions;
 		_renderedNPowerOrder = _nPowerOrder;
-	}
+        
+	} else if (_basesShape == BASIS_SHAPE_PADE_SECOND ) {
+        
+        //
+        // PADE BASES 2nd order
+        // 14 coefficients
+        //
+        
+        _nDimensions=4;
+        vecBasisIndices.clear();
+        for (int iBasis=0; iBasis<14; iBasis++)
+        {
+            vecBasisIndices.push_back(new unsigned int[_nDimensions]);
+            for (int iDimension=0; iDimension<_nDimensions; iDimension++)
+                vecBasisIndices[iBasis][iDimension]=0;
+        }
+        
+        //0 A x
+        vecBasisIndices[0][0]=1;
+        
+        //1 B y
+        vecBasisIndices[1][1]=1;
+        
+        //2 C z
+        vecBasisIndices[2][2]=1;
+        
+        //3 D x x
+        vecBasisIndices[3][0]=2;
+        
+        //4 E y y
+        vecBasisIndices[4][1]=2;
+        
+        //5 F z z
+        vecBasisIndices[5][2]=2;
+        
+        //6 G x y
+        vecBasisIndices[6][0]=1;
+        vecBasisIndices[6][1]=1;
+        
+        //7 H y z
+        vecBasisIndices[7][1]=1;
+        vecBasisIndices[7][2]=1;
+        
+        //8 I z x
+        vecBasisIndices[8][0]=1;
+        vecBasisIndices[8][2]=1;
+        
+        //9 J x y z
+        vecBasisIndices[9][0]=1;
+        vecBasisIndices[9][1]=1;
+        vecBasisIndices[9][2]=1;
+        
+        
+        //10 K - 
+        //constant
+        //
+        
+        //11 L x x'
+        vecBasisIndices[11][0]=1;
+        vecBasisIndices[11][3]=1;
+        
+        //12 M y x'
+        vecBasisIndices[12][1]=1;
+        vecBasisIndices[12][3]=1;
+        
+        //13 N z x'
+        vecBasisIndices[13][2]=1;
+        vecBasisIndices[13][3]=1;
+        
+        _nBases = vecBasisIndices.size();
+        
+        _renderedNDimensions = _nDimensions;
+        _renderedNPowerOrder = _nPowerOrder;
+    }
 }
 
 void powerBases::clearBases()
