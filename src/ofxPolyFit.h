@@ -30,15 +30,15 @@ public:
     void        correlate(pfitDataSetd &dataSet);
     
     //general case evaluate
-	void		evaluate(pfitDataPointd &dataPoint, bool checkData=true);
-	void		evaluate(pfitDataSetd &dataSet);
+	void		evaluate(pfitDataPointd &dataPoint, bool checkData=true) const;
+	void		evaluate(pfitDataSetd &dataSet) const;
     
     //special 1D case
-    DataType    evaluate(DataType input);
+    DataType    evaluate(DataType input) const;
     
     //residuals
-    DataType      residualSquared(pfitDataPointd const &dataPoint, bool checkData=true);
-    DataType      residualRMS(pfitDataSetd const &dataSet);
+    DataType      residualSquared(pfitDataPointd const &dataPoint, bool checkData=true) const;
+    DataType      residualRMS(pfitDataSetd const &dataSet) const;
     
     bool        getSuccess() { return _success; }
 	void        save(string filename);
@@ -56,7 +56,7 @@ public:
     set<int> bestConsensus;
     double *bestModel;
 protected:
-    bool    checkInitialised();
+    bool    checkInitialised() const;
 
 	polyNfit		*_fit;
 	

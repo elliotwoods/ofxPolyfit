@@ -118,7 +118,7 @@ void ofxPolyFit::correlate(pfitDataSetd &dataSet)
     }
 }
 
-void ofxPolyFit::evaluate(pfitDataPointd &dataPoint, bool checkData)
+void ofxPolyFit::evaluate(pfitDataPointd &dataPoint, bool checkData) const
 {
     /////////////////////////
     // Check we're ready
@@ -168,7 +168,7 @@ void ofxPolyFit::evaluate(pfitDataPointd &dataPoint, bool checkData)
     ///////////////////////////
 }
 
-void ofxPolyFit::evaluate(pfitDataSetd &dataSet)
+void ofxPolyFit::evaluate(pfitDataSetd &dataSet) const
 {
     /////////////////////////
     // Check we're ready
@@ -201,7 +201,7 @@ void ofxPolyFit::evaluate(pfitDataSetd &dataSet)
     
 }
 
-DataType ofxPolyFit::evaluate(DataType input)
+DataType ofxPolyFit::evaluate(DataType input) const
 {
     checkInitialised();
     
@@ -224,7 +224,7 @@ DataType ofxPolyFit::evaluate(DataType input)
     
 }
 
-DataType ofxPolyFit::residualSquared(pfitDataPointd const &dataPoint, bool checkData)
+DataType ofxPolyFit::residualSquared(pfitDataPointd const &dataPoint, bool checkData) const
 {
     /////////////////////////
     // Check we're ready
@@ -281,7 +281,7 @@ DataType ofxPolyFit::residualSquared(pfitDataPointd const &dataPoint, bool check
     
 }
 
-DataType ofxPolyFit::residualRMS(pfitDataSetd const &dataSet)
+DataType ofxPolyFit::residualRMS(pfitDataSetd const &dataSet) const
 {
     /////////////////////////
     // Check we're ready
@@ -553,7 +553,7 @@ void ofxPolyFit::RANSAC(double* input, double* output, int nDataPoints, int maxI
             
 */
 
-bool ofxPolyFit::checkInitialised()
+bool ofxPolyFit::checkInitialised() const
 {
     if (!_isInitialised)
     {
