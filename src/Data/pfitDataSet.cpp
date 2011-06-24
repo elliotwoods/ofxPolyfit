@@ -383,7 +383,7 @@ pfitIndex pfitDataSet<DataType>::getActiveIndicesCount() const
 {
     checkAllocated();
     
-    pfitIndex count;
+    pfitIndex count = 0;
     
     for (pfitIndex i=0; i<_nDataPoints; i++)
     {
