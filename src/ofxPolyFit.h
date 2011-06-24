@@ -37,8 +37,8 @@ public:
     DataType    evaluate(DataType input) const;
     
     //residuals
-    DataType      residualSquared(pfitDataPointd const &dataPoint, bool checkData=true) const;
-    DataType      residualRMS(pfitDataSetd const &dataSet) const;
+    DataType      residualSquared(pfitDataPointd const &dataPoint, bool checkData=true);
+    DataType      residualRMS(pfitDataSetd const &dataSet);
     
     bool        getSuccess() { return _success; }
 	void        save(string filename);

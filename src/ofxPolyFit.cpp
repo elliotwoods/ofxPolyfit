@@ -224,7 +224,7 @@ DataType ofxPolyFit::evaluate(DataType input) const
     
 }
 
-DataType ofxPolyFit::residualSquared(pfitDataPointd const &dataPoint, bool checkData) const
+DataType ofxPolyFit::residualSquared(pfitDataPointd const &dataPoint, bool checkData)
 {
     /////////////////////////
     // Check we're ready
@@ -281,7 +281,7 @@ DataType ofxPolyFit::residualSquared(pfitDataPointd const &dataPoint, bool check
     
 }
 
-DataType ofxPolyFit::residualRMS(pfitDataSetd const &dataSet) const
+DataType ofxPolyFit::residualRMS(pfitDataSetd const &dataSet)
 {
     /////////////////////////
     // Check we're ready
