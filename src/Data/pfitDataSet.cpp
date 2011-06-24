@@ -256,7 +256,7 @@ void pfitDataSet<DataType>::resize(pfitIndex const size)
     if (size > _nDataPointsAllocated)
     {
         //reallocate to fit new size
-        allocate(1 << int(ceil(log(double(size+1)/log((double)2.0)))));
+        allocate(1 << int(ceil(log(double(size+1))/log((double)2.0))));
         
     }
     
@@ -264,7 +264,7 @@ void pfitDataSet<DataType>::resize(pfitIndex const size)
     if (size < quarterOfAllocation)
     {
         //reallocate to fit new size
-        allocate(1 << int(ceil(log(double(size+1)/log((double)2.0)))));
+        allocate(1 << int(ceil(log(double(size+1))/log((double)2.0))));
     }
     
     _nDataPoints = size;
