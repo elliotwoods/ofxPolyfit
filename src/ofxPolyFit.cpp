@@ -355,9 +355,10 @@ void ofxPolyFit::save(string filename)
 	fileout.write((char*) &nBases, 4);
 	
 	
-	for (int iBasis=0; iBasis<nBases; iBasis++)
-		fileout.write((char*) basisIndicies->at(iBasis),
-					  sizeof(unsigned int) * _fit->_indim);
+	if (_fit->_basesShape < BASIS_SHAPE_PADE_FIRST)
+		for (int iBasis=0; iBasis<nBases; iBasis++)
+			fileout.write((char*) basisIndicies->at(iBasis),
+						  sizeof(unsigned int) * _fit->_indim);
 	
 	for (int iDimOut=0; iDimOut<_fit->_outdim; iDimOut++)
 		fileout.write((char*) coefficients[iDimOut],
@@ -392,13 +393,16 @@ void ofxPolyFit::load(string filename)
     
 	filein.read((char*) &nBases, 4);
 	
-	for (int iBasis=0; iBasis<nBases; iBasis++)
-		filein.read((char*) basisIndicies->at(iBasis),
-					  _fit->_indim * 4);
+	if (_fit->_basesShape < BASIS_SHAPE_PADE_FIRST)
+		for (int iBasis=0; iBasis<nBases; iBasis++)
+			filein.read((char*) basisIndicies->at(iBasis),
+						  _fit->_indim * 4);
 	
 	for (int iDimOut=0; iDimOut<_fit->_outdim; iDimOut++)
 		filein.read((char*) coefficients[iDimOut],
 					  sizeof(double) * nBases);
+	
+	_success = true;
 }
 
 /*
