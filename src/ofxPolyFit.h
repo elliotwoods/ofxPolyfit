@@ -14,52 +14,52 @@
 
 #include "polyNfit.h"
 
-//for the time being, we asset doubles
-typedef double DataType;
-
-class ofxPolyFit
+template <class T>
+class ofxPolyFit_
 {
 public:
-	ofxPolyFit();
-	~ofxPolyFit();
+	ofxPolyFit_();
+	~ofxPolyFit_();
 	
 	void		init(int order, int dimensionsIn, int dimensionsOut, pfitBasisType basisType);
 	void        uninitialise();
     
     //perform correlation
-    void        correlate(pfitDataSetd &dataSet);
+    void        correlate(pfitDataSet<T> &dataSet);
     
     //general case evaluate
-	void		evaluate(pfitDataPointd &dataPoint, bool checkData=true) const;
-	void		evaluate(pfitDataSetd &dataSet) const;
+	void		evaluate(pfitDataPoint<T> &dataPoint, bool checkData=true) const;
+	void		evaluate(pfitDataSet<T> &dataSet) const;
     
     //special 1D case
-    DataType    evaluate(DataType input) const;
+    T		    evaluate(T input) const;
     
     //residuals
-    DataType      residualSquared(pfitDataPointd const &dataPoint, bool checkData=true);
-    DataType      residualRMS(pfitDataSetd const &dataSet);
+    T			residualSquared(pfitDataPoint<T> const &dataPoint, bool checkData=true);
+    T			residualRMS(pfitDataSet<T> const &dataSet);
     
     bool        getSuccess() { return _success; }
 	void        save(string filename);
 	void		load(string filename);
     
 	vector<unsigned int*>				*basisIndicies;
-	vector<DataType*>					coefficients;
+	vector<T*>							coefficients;
 	
 	unsigned int						nBases;
     
     //RANSAC (experimental)
-    void        RANSAC(double* input, double* output, int nDataPoints, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold);
+    void        RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold);
     
-    double bestError;
+    T bestError;
     set<int> bestConsensus;
-    double *bestModel;
+    T *bestModel;
 protected:
     bool    checkInitialised() const;
 
-	polyNfit		*_fit;
+	polyNfit<T>		*_fit;
 	
 	bool			_isInitialised;
 	bool			_success;
 };
+
+typedef ofxPolyFit_<float> ofxPolyFit;

@@ -13,19 +13,18 @@
 #include "pfitDataSet.h"
 #include <vector>
 
-typedef double DataType;
-
+template <class T>
 class FitBase
 {
 public:
 	FitBase(int bases, int indim, int outdim);
 	~FitBase();
 	
-    void                init(pfitDataSet<DataType> &dataSet);
+    void                init(pfitDataSet<T> &dataSet);
     
-	void				solve(int, double *, unsigned int &nCoefficients);
+	void				solve(int, T *, unsigned int &nCoefficients);
 	int					nBases() { return _bases; };
-	virtual DataType	basis(int n, pfitDataPoint<DataType> const &x) = 0;
+	virtual T			basis(int n, pfitDataPoint<T> const &x) = 0;
 	
 	unsigned short		_indim, _outdim;
 
@@ -33,7 +32,7 @@ protected:
 	int					_bases;
 	
 	// Solves Ax = y for x
-	Matrix								A;	
-	std::vector<std::vector<double> >	y;	// store OUTDIM values of y
+	Matrix<T>							A;	
+	std::vector<std::vector<T> >		y;	// store OUTDIM values of y
 	
 };

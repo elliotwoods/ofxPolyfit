@@ -16,9 +16,10 @@ float testApp::fundamental(float x)
 //--------------------------------------------------------------
 void testApp::setup(){
     
-    ofBackground(50, 50, 50);
+    ofBackground(80, 80, 80);
     ofSetWindowShape(WIDTH, HEIGHT);
     ofSetVerticalSync(true);
+	ofEnableSmoothing();
     
     mouseX = WIDTH / 2.0f;
     

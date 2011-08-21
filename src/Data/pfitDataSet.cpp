@@ -11,9 +11,17 @@
 ///////////////////////////////////////////////////////
 // pfitDataPoint
 //
+template<typename T>
+pfitDataPoint<T>::pfitDataPoint() : 
+_inDimensions(0),
+_outDimensions(0),
+_enabled(true),
+_locallyAllocated(false)
+{
+}
 
-template<typename DataType>
-pfitDataPoint<DataType>::pfitDataPoint(int inputDimensions, int outputDimensions, DataType* inputData, DataType* outputData, bool enabled) : 
+template<typename T>
+pfitDataPoint<T>::pfitDataPoint(int inputDimensions, int outputDimensions, T* inputData, T* outputData, bool enabled) : 
 _inDimensions(inputDimensions),
 _outDimensions(outputDimensions),
 _inputData(inputData),
@@ -23,22 +31,32 @@ _locallyAllocated(false)
 {
 }
 
-template<typename DataType>
-pfitDataPoint<DataType>::~pfitDataPoint()
+template<typename T>
+pfitDataPoint<T>::pfitDataPoint(int inputDimensions, int outputDimensions, bool enabled = true) :
+_inDimensions(inputDimensions),
+_outDimensions(outputDimensions),
+_enabled(enabled),
+_locallyAllocated(false)
+{
+	localAllocate();
+}
+
+template<typename T>
+pfitDataPoint<T>::~pfitDataPoint()
 {
     if (_locallyAllocated)
         localRelease();
 }
 
-template<typename DataType>
-void pfitDataPoint<DataType>::operator++()
+template<typename T>
+void pfitDataPoint<T>::operator++()
 {
     _inputData += _inDimensions;
     _outputData += _outDimensions;
 }
 
-template<typename DataType>
-pfitDataPoint<DataType> pfitDataPoint<DataType>::operator+(const pfitIndex &RHS)
+template<typename T>
+pfitDataPoint<T> pfitDataPoint<T>::operator+(const pfitIndex &RHS)
 {
     return pfitDataPoint(_inDimensions, _outDimensions,
             _inputData + _inDimensions * RHS,
@@ -46,15 +64,15 @@ pfitDataPoint<DataType> pfitDataPoint<DataType>::operator+(const pfitIndex &RHS)
             _enabled);            
 }
 
-template<typename DataType>
-bool pfitDataPoint<DataType>::operator==(pfitDataPoint const &RHS)
+template<typename T>
+bool pfitDataPoint<T>::operator==(pfitDataPoint const &RHS)
 {
     //presume if input is same, then output is same
     return (this->getInput() == RHS.getInput());
 }
 
-template<typename DataType>
-bool pfitDataPoint<DataType>::operator!=(pfitDataPoint const &RHS)
+template<typename T>
+bool pfitDataPoint<T>::operator!=(pfitDataPoint const &RHS)
 {
     //perhaps this should reference == 
     
@@ -63,15 +81,15 @@ bool pfitDataPoint<DataType>::operator!=(pfitDataPoint const &RHS)
 
 }
 
-template<typename DataType>
-void pfitDataPoint<DataType>::clearOutput()
+template<typename T>
+void pfitDataPoint<T>::clearOutput()
 {
     for (int i=0; i<_outDimensions; i++)
         _outputData[i] = 0;
 }
 
-template <typename DataType>
-void pfitDataPoint<DataType>::throwIfNotReady(int inDimensions, int outDimensions) const
+template <typename T>
+void pfitDataPoint<T>::throwIfNotReady(int inDimensions, int outDimensions) const
 {
     if (_inDimensions != inDimensions)
         throw("pfitDataPoint : input dimensions of data set do not match fit");
@@ -82,22 +100,22 @@ void pfitDataPoint<DataType>::throwIfNotReady(int inDimensions, int outDimension
 
 ////
 
-template <typename DataType>
-void pfitDataPoint<DataType>::localAllocate()
+template <typename T>
+void pfitDataPoint<T>::localAllocate()
 {
     if (_locallyAllocated)
         localRelease();
     
     
-    _inputData = new DataType[_inDimensions];
-    _outputData = new DataType[_outDimensions];
+    _inputData = new T[_inDimensions];
+    _outputData = new T[_outDimensions];
     
     
     _locallyAllocated = true;
 }
 
-template <typename DataType>
-void pfitDataPoint<DataType>::localRelease()
+template <typename T>
+void pfitDataPoint<T>::localRelease()
 {
     if (!_locallyAllocated)
         throw("pfitDataPoint: cannot release data as we have nothing locally allocated");
@@ -109,41 +127,41 @@ void pfitDataPoint<DataType>::localRelease()
 
 ////
 
-template <typename DataType>
-DataType* pfitDataPoint<DataType>::getInput() const
+template <typename T>
+T* pfitDataPoint<T>::getInput() const
 {
     return _inputData;    
 }
 
-template <typename DataType>
-DataType* pfitDataPoint<DataType>::getOutput() const
+template <typename T>
+T* pfitDataPoint<T>::getOutput() const
 {
     return _outputData;    
 }
 
 
-template <typename DataType>
-DataType* pfitDataPoint<DataType>::getInput()
+template <typename T>
+T* pfitDataPoint<T>::getInput()
 {
     return _inputData;    
 }
 
-template <typename DataType>
-DataType* pfitDataPoint<DataType>::getOutput()
+template <typename T>
+T* pfitDataPoint<T>::getOutput()
 {
     return _outputData;    
 }
 
-template <typename DataType>
-bool pfitDataPoint<DataType>::getEnabled() const
+template <typename T>
+bool pfitDataPoint<T>::getEnabled() const
 {
     return _enabled;    
 }
 
 ////
 
-template <typename DataType>
-string pfitDataPoint<DataType>::toString() const
+template <typename T>
+string pfitDataPoint<T>::toString() const
 {
     stringstream output;
     
@@ -190,8 +208,8 @@ string pfitDataPoint<DataType>::toString() const
 // pfitDataSet
 //
 
-template<typename DataType>
-pfitDataSet<DataType>::pfitDataSet() :
+template<typename T>
+pfitDataSet<T>::pfitDataSet() :
 _dataAllocated(false),
 _nDataPoints(0),
 _nDataPointsAllocated(0),
@@ -201,36 +219,36 @@ _outDimensions(0)
     
 }
 
-template<typename DataType>
-pfitDataSet<DataType>::~pfitDataSet()
+template<typename T>
+pfitDataSet<T>::~pfitDataSet()
 {
     clear();
 }
 
-template<typename DataType>
-pfitDataPoint<DataType> pfitDataSet<DataType>::operator[]( pfitIndex i )
+template<typename T>
+pfitDataPoint<T> pfitDataSet<T>::operator[]( pfitIndex i )
 {
     checkAllocated();
     
     if (i < _nDataPoints)
-        return pfitDataPoint<DataType>(_inDimensions, _outDimensions, _inData + i*_inDimensions, _outData + i*_outDimensions, _enabledData[i]);
+        return pfitDataPoint<T>(_inDimensions, _outDimensions, _inData + i*_inDimensions, _outData + i*_outDimensions, _enabledData[i]);
     else
         throw("pfitDataSet::[] : index out of range");
 }
 
-template<typename DataType>
-pfitDataPoint<DataType> pfitDataSet<DataType>::operator[]( pfitIndex i ) const
+template<typename T>
+pfitDataPoint<T> pfitDataSet<T>::operator[]( pfitIndex i ) const
 {
     checkAllocated();
     
     if (i < _nDataPoints)
-        return pfitDataPoint<DataType>(_inDimensions, _outDimensions, _inData + i*_inDimensions, _outData + i*_outDimensions, _enabledData[i]);
+        return pfitDataPoint<T>(_inDimensions, _outDimensions, _inData + i*_inDimensions, _outData + i*_outDimensions, _enabledData[i]);
     else
         throw("pfitDataSet::[] : index out of range");
 }
 
-template<typename DataType>
-void pfitDataSet<DataType>::init(int inputDimensions, int outputDimensions, pfitIndex size)
+template<typename T>
+void pfitDataSet<T>::init(int inputDimensions, int outputDimensions, pfitIndex size)
 {
     deAllocate();
     
@@ -240,14 +258,14 @@ void pfitDataSet<DataType>::init(int inputDimensions, int outputDimensions, pfit
     resize(size);
 }
 
-template<typename DataType>
-void pfitDataSet<DataType>::clear()
+template<typename T>
+void pfitDataSet<T>::clear()
 {
     deAllocate();
 }
 
-template<typename DataType>
-void pfitDataSet<DataType>::resize(pfitIndex const size)
+template<typename T>
+void pfitDataSet<T>::resize(pfitIndex const size)
 {
     //save time by only copying relevant points
     //during allocation
@@ -270,8 +288,8 @@ void pfitDataSet<DataType>::resize(pfitIndex const size)
     _nDataPoints = size;
 }
 
-template<typename DataType>
-void pfitDataSet<DataType>::allocate(pfitIndex const allocation)
+template<typename T>
+void pfitDataSet<T>::allocate(pfitIndex const allocation)
 {
     if (allocation == 0)
     {
@@ -279,8 +297,8 @@ void pfitDataSet<DataType>::allocate(pfitIndex const allocation)
         return;        
     }
     
-    DataType *newDataAreaIn = new DataType[allocation * _inDimensions];
-    DataType *newDataAreaOut = new DataType[allocation * _outDimensions];
+    T *newDataAreaIn = new T[allocation * _inDimensions];
+    T *newDataAreaOut = new T[allocation * _outDimensions];
     bool *newDataAreaEnabled = new bool[allocation];
 
     //set default enabled to 'true'
@@ -296,8 +314,8 @@ void pfitDataSet<DataType>::allocate(pfitIndex const allocation)
     if (_dataAllocated)
     {
         //move to new memory area
-        memcpy(newDataAreaIn, _inData, _nDataPoints * sizeof(DataType) * _inDimensions);
-        memcpy(newDataAreaOut, _inData, _nDataPoints * sizeof(DataType) * _outDimensions);
+        memcpy(newDataAreaIn, _inData, _nDataPoints * sizeof(T) * _inDimensions);
+        memcpy(newDataAreaOut, _outData, _nDataPoints * sizeof(T) * _outDimensions);
         memcpy(newDataAreaEnabled, _enabledData, _nDataPoints * sizeof(bool));
         
         //delete old memory area
@@ -317,8 +335,8 @@ void pfitDataSet<DataType>::allocate(pfitIndex const allocation)
     _dataAllocated = true;
 }
 
-template<typename DataType>
-void pfitDataSet<DataType>::deAllocate()
+template<typename T>
+void pfitDataSet<T>::deAllocate()
 {
     if (_dataAllocated)
     {
@@ -334,36 +352,36 @@ void pfitDataSet<DataType>::deAllocate()
 
 ////
 
-template<typename DataType>
-DataType* pfitDataSet<DataType>::getInput()
+template<typename T>
+T* pfitDataSet<T>::getInput()
 {
     return _inData;
 }
 
-template<typename DataType>
-DataType* pfitDataSet<DataType>::getOutput()
+template<typename T>
+T* pfitDataSet<T>::getOutput()
 {
     return _outData;
 }
 
 ////
 
-template<typename DataType>
-pfitDataPoint<DataType> pfitDataSet<DataType>::begin() const
+template<typename T>
+pfitDataPoint<T> pfitDataSet<T>::begin() const
 {
     return operator[](0);
 }
 
-template<typename DataType>
-pfitDataPoint<DataType> pfitDataSet<DataType>::end() const
+template<typename T>
+pfitDataPoint<T> pfitDataSet<T>::end() const
 {
     return operator[](_nDataPoints-1) + 1;
 }
 
 ////
 
-template<typename DataType>
-set<pfitIndex> pfitDataSet<DataType>::getActiveIndices() const
+template<typename T>
+set<pfitIndex> pfitDataSet<T>::getActiveIndices() const
 {
     checkAllocated();
     
@@ -378,8 +396,8 @@ set<pfitIndex> pfitDataSet<DataType>::getActiveIndices() const
 	return activeIndices;
 }
 
-template<typename DataType>
-pfitIndex pfitDataSet<DataType>::getActiveIndicesCount() const
+template<typename T>
+pfitIndex pfitDataSet<T>::getActiveIndicesCount() const
 {
     checkAllocated();
     
@@ -396,8 +414,8 @@ pfitIndex pfitDataSet<DataType>::getActiveIndicesCount() const
 
 ////
 
-template<typename DataType>
-string pfitDataSet<DataType>::toString() const
+template<typename T>
+string pfitDataSet<T>::toString() const
 {
     stringstream output;
     
@@ -410,15 +428,15 @@ string pfitDataSet<DataType>::toString() const
 /////////////////////////
 // protected
 
-template<typename DataType>
-void pfitDataSet<DataType>::checkAllocated() const
+template<typename T>
+void pfitDataSet<T>::checkAllocated() const
 {
     if (!_dataAllocated)
         throw ("pfitDataSet: data not allocated");
 }
 
-template <typename DataType>
-void pfitDataSet<DataType>::throwIfNotReady(int inDimensions, int outDimensions, int nBases) const
+template <typename T>
+void pfitDataSet<T>::throwIfNotReady(int inDimensions, int outDimensions, int nBases) const
 {
     if (_inDimensions != inDimensions)
         throw("pfitDataSet : input dimensions of data set do not match fit");

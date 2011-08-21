@@ -12,8 +12,8 @@
 // ---------- Define the basis we're working in
 // --------------------------------------------
 
-
-DataType polyNfit::basis(int n, pfitDataPoint<DataType> const &x)
+template <class T>
+T polyNfit<T>::basis(int n, pfitDataPoint<T> const &x)
 {
 	//n denotes the index of the basis that we're working with
 	//for 1D, we just have power x^n
@@ -45,17 +45,19 @@ DataType polyNfit::basis(int n, pfitDataPoint<DataType> const &x)
 	 return output
 	 */
     
-	DataType output = 1;
-	DataType *xData = x.getInput();
+	T output = 1;
+	T *xData = x.getInput();
 	
 	for (int iDimension=0; iDimension<_indim; iDimension++)
 	{
-		output *= pow(xData[iDimension],(double)vecBasisIndices.at(n)[iDimension]);
+		output *= pow(xData[iDimension],(T)vecBasisIndices.at(n)[iDimension]);
 	}
 	
 	return output;
 	//1D solution
 	//return(pow(x[0], n));
     
-    
 }
+
+template class polyNfit<double>;
+template class polyNfit<float>;

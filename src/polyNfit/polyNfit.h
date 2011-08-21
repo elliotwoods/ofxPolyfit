@@ -11,17 +11,17 @@
 #include "FitBase.h"
 #include "powerBases.h"
 
-
-class polyNfit : public powerBases, public FitBase
+template <class T>
+class polyNfit : public powerBases, public FitBase<T>
 {
 public:
 	polyNfit(int order, int indim, int outdim, pfitBasisType basesShape) :
  		_order(order),
-		FitBase(updateBasisIndicies(indim,order), indim, outdim),
+		FitBase<T>(updateBasisIndicies(indim,order), indim, outdim),
 		powerBases(basesShape)
 		{
 		};
 
-    DataType		basis(int n, pfitDataPoint<DataType> const &x);
+    T				basis(int n, pfitDataPoint<T> const &x);
 	unsigned short	_order;
 };

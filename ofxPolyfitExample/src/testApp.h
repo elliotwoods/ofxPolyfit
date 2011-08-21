@@ -26,9 +26,10 @@ class testApp : public ofBaseApp{
 		void mouseReleased(int x, int y, int button);
 		void windowResized(int w, int h);
     
-        ofxPolyFit              fit;
-//        ofxPolyFit          ransac;
-        pfitDataSet<double>     dataSet;
+		//ofxPolyFit						fit; //this gives a float fit
+        ofxPolyFit_<DataType>             fit;
+		//ofxPolyFit          ransac;
+        pfitDataSet<DataType>     dataSet;
     
         float   fundamental(float x);
     

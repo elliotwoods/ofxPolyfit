@@ -14,15 +14,15 @@
 // Constructors/Deconstructors
 //
 ///////////////////////////////////////////////////////////////////////////////
-
-Matrix::Matrix(int isize, int jsize) : N(jsize) {
-  x = new double [isize*jsize];
+template<class T>
+Matrix<T>::Matrix(int isize, int jsize) : N(jsize) {
+  x = new T [isize*jsize];
   allocatedMemory = true;
   SIZE = isize*jsize;
 }
 
-
-Matrix::Matrix(double *mem, int isize, int jsize) : 
+template<class T>
+Matrix<T>::Matrix(T *mem, int isize, int jsize) : 
   N(jsize),
   SIZE(isize*jsize)
 {
@@ -30,8 +30,8 @@ Matrix::Matrix(double *mem, int isize, int jsize) :
   allocatedMemory = false;
 }
 
-
-Matrix::~Matrix() {
+template<class T>
+Matrix<T>::~Matrix() {
   if(allocatedMemory) delete [] x;
 }
 
@@ -41,11 +41,11 @@ Matrix::~Matrix() {
 // LU-decomposition
 //
 ///////////////////////////////////////////////////////////////////////////////
-
-void Matrix::LUdecomp() {
+template<class T>
+void Matrix<T>::LUdecomp() {
   int i,j,k;
-  double maxVal;
-  double tmp;
+  T maxVal;
+  T tmp;
 
   for(i=0;i<N;i++) {
     maxVal=0.0;
@@ -85,9 +85,10 @@ void Matrix::LUdecomp() {
 // resizes this matrix, invalidating its contents.
 //
 ///////////////////////////////////////////////////////////////////////////////
-void Matrix::resize(int isize, int jsize) {
+template<class T>
+void Matrix<T>::resize(int isize, int jsize) {
   if(allocatedMemory) delete [] x;
-  x = new double [isize*jsize];
+  x = new T [isize*jsize];
   N = jsize;
   SIZE = isize*jsize;
   allocatedMemory = true;
@@ -97,7 +98,8 @@ void Matrix::resize(int isize, int jsize) {
 ///////////////////////////////////////////////////////////////////////////////
 //
 ///////////////////////////////////////////////////////////////////////////////
-void Matrix::clear() {
+template<class T>
+void Matrix<T>::clear() {
   for(int i = 0; i<SIZE; ++i) {
     x[i] = 0.0;
   }
@@ -112,7 +114,8 @@ void Matrix::clear() {
 // filled with zeroes.
 // 
 ///////////////////////////////////////////////////////////////////////////////
-bool Matrix::repackFrom(int is, int js) {
+template<class T>
+bool Matrix<T>::repackFrom(int is, int js) {
   if(is > isize() || js > jsize()) return(false);
   int i,j;
   
@@ -145,8 +148,8 @@ bool Matrix::repackFrom(int is, int js) {
 // Prints the martix to 'out'
 //
 ///////////////////////////////////////////////////////////////////////////////
-
-std::ostream &operator <<(std::ostream &out, const Matrix &M) {
+template<class T>
+std::ostream &operator <<(std::ostream &out, const Matrix<T> &M) {
   int i,j;
 
   out.precision(3);
@@ -160,3 +163,5 @@ std::ostream &operator <<(std::ostream &out, const Matrix &M) {
   return(out);
 }
 
+template class Matrix<double>;
+template class Matrix<float>;

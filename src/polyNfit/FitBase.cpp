@@ -17,7 +17,8 @@
 
 #include "FitBase.h"
 
-FitBase::FitBase(int bases, int indim, int outdim) : 
+template<class T>
+FitBase<T>::FitBase(int bases, int indim, int outdim) : 
 A(bases, bases),
 _indim(indim), _outdim(outdim), y(bases), _bases(bases)
 {
@@ -27,7 +28,8 @@ _indim(indim), _outdim(outdim), y(bases), _bases(bases)
 }
 
 
-FitBase::~FitBase() {
+template<class T>
+FitBase<T>::~FitBase() {
 
 } 
 
@@ -41,7 +43,8 @@ FitBase::~FitBase() {
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void FitBase::solve(int I, double *x, unsigned int &nCoefficients) {
+template<class T>
+void FitBase<T>::solve(int I, T *x, unsigned int &nCoefficients) {
 	
 	
 	int n,i,j;
@@ -74,12 +77,13 @@ void FitBase::solve(int I, double *x, unsigned int &nCoefficients) {
 // 'M' gives the number of datapoints in 'points' and 'data'
 //
 ///////////////////////////////////////////////////////////////////////////////
-void FitBase::init(pfitDataSet<DataType> &dataSet)
+template<class T>
+void FitBase<T>::init(pfitDataSet<T> &dataSet)
 {
     const pfitIndex M = dataSet.getActiveIndicesCount();
     
 	const int N = A.jsize();
-	double *bas = new double[N];
+	T *bas = new T[N];
 	
 	int n, k;
 	int i, j;
@@ -98,8 +102,9 @@ void FitBase::init(pfitDataSet<DataType> &dataSet)
 	}
 	
 	// Form sums over each datapoint
-    DataType *output;
-	for(pfitDataPointd point = dataSet.begin(); point != dataSet.end(); ++point)
+    T *output;
+	//#pragma omp parallel private(bas, output)
+	for(pfitDataPoint<T> point = dataSet.begin(); point != dataSet.end(); ++point)
     {
         if (!point.getEnabled())
             continue;
@@ -139,3 +144,5 @@ void FitBase::init(pfitDataSet<DataType> &dataSet)
 	delete [] bas;
 }
 
+template class FitBase<double>;
+template class FitBase<float>;

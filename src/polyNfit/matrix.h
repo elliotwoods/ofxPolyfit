@@ -15,10 +15,11 @@
 #include <new>
 #include <iostream>
 
+template <class T>
 class Matrix {
 public:
   Matrix(int isize, int jsize);
-  Matrix(double *, int isize, int jsize);
+  Matrix(T *, int isize, int jsize);
   ~Matrix();
 
   int 		jsize() const		       	{return(N);}
@@ -28,27 +29,28 @@ public:
   //void		setToBasis(double (*)(int,double *), double *, int);
   void		resize(int, int);
   bool		repackFrom(int,int);
-  double *	array() 			{return(x);}
+  T *		array() 			{return(x);}
   void		clear();
 
-  double &	val(int i, int j)		{
+  T &	val(int i, int j)		{
     //    if(i*N+j >= SIZE) throw("Subscript out of range in Matrix.");
       return(x[i*N+j]);
   }
-  double 	val(int i, int j) const		{
+  T 	val(int i, int j) const		{
     //    if(i*N+j >= SIZE) throw("Subscript out of range in const Matrix.");
       return(x[i*N+j]);
   }
-  double &	operator()(int i, int j)	{return(val(i,j));}
-  double 	operator()(int i, int j) const	{return(val(i,j));}
+  T &	operator()(int i, int j)	{return(val(i,j));}
+  T 	operator()(int i, int j) const	{return(val(i,j));}
 
 protected:
-  double * 	x;
+  T * 	x;
   int 		N;
   int		SIZE;
   bool		allocatedMemory;
 };
 
-std::ostream &operator <<(std::ostream &, const Matrix &);
+template <class T>
+std::ostream &operator <<(std::ostream &, const Matrix<T> &);
 
 #endif

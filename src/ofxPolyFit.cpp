@@ -9,7 +9,8 @@
 
 #include "ofxPolyFit.h"
 
-ofxPolyFit::ofxPolyFit() : 
+template<class T>
+ofxPolyFit_<T>::ofxPolyFit_() : 
 bestModel(0)
 {
 	_isInitialised = false;
@@ -17,7 +18,8 @@ bestModel(0)
 	nBases = 0;
 }
 
-ofxPolyFit::~ofxPolyFit()
+template<class T>
+ofxPolyFit_<T>::~ofxPolyFit_()
 {
 	if (_isInitialised)
     {
@@ -28,12 +30,13 @@ ofxPolyFit::~ofxPolyFit()
     }
 }
 
-void ofxPolyFit::init(int order, int dimensionsIn, int dimensionsOut, pfitBasisType basisType)
+template<class T>
+void ofxPolyFit_<T>::init(int order, int dimensionsIn, int dimensionsOut, pfitBasisType basisType)
 {
 	if (_isInitialised)
 		uninitialise();
 	
-	_fit = new polyNfit(order, dimensionsIn, dimensionsOut, basisType);
+	_fit = new polyNfit<T>(order, dimensionsIn, dimensionsOut, basisType);
 	
 	basisIndicies = &(_fit->vecBasisIndices);
 	
@@ -41,7 +44,7 @@ void ofxPolyFit::init(int order, int dimensionsIn, int dimensionsOut, pfitBasisT
 	coefficients.resize(_fit->_outdim);
 	for (int i=0; i<_fit->_outdim; i++)
 	{
-		coefficients[i] = new double[_fit->_nBases];
+		coefficients[i] = new T[_fit->_nBases];
 		for (int iBasis=0; iBasis<_fit->_nBases; iBasis++)
 			coefficients[i][iBasis] = 0;
 	}
@@ -52,7 +55,8 @@ void ofxPolyFit::init(int order, int dimensionsIn, int dimensionsOut, pfitBasisT
 	_isInitialised = true;
 }
 
-void ofxPolyFit::uninitialise()
+template<class T>
+void ofxPolyFit_<T>::uninitialise()
 {
     for (int i=0; i<_fit->_outdim; i++)
         delete[] coefficients[i];
@@ -64,7 +68,8 @@ void ofxPolyFit::uninitialise()
     _success = false;
 }
 
-void ofxPolyFit::correlate(pfitDataSetd &dataSet)
+template<class T>
+void ofxPolyFit_<T>::correlate(pfitDataSet<T> &dataSet)
 {
 	if (!checkInitialised())
         return;
@@ -83,7 +88,7 @@ void ofxPolyFit::correlate(pfitDataSetd &dataSet)
         // RECREATE FIT
         //////////////////////////////////////////////////////
         //
-        polyNfit *newFit = new polyNfit(_fit->_order, _fit->_indim, _fit->_outdim, _fit->_basesShape);
+        polyNfit<T> *newFit = new polyNfit<T>(_fit->_order, _fit->_indim, _fit->_outdim, _fit->_basesShape);
         delete _fit;
         _fit = newFit;
         //
@@ -93,6 +98,7 @@ void ofxPolyFit::correlate(pfitDataSetd &dataSet)
         // PERFORM FIT
         //////////////////////////////////////////////////////
         //
+		ofLogNotice() << "ofxPolyFit : initialising polyfit";
         _fit->init(dataSet);
         //
         //////////////////////////////////////////////////////
@@ -102,11 +108,14 @@ void ofxPolyFit::correlate(pfitDataSetd &dataSet)
         // READ IN COEFFICIENTS
         //////////////////////////////////////////////////////
         //
+		ofLogNotice() << "ofxPolyFit : solving polyfit";
         for (int iDimOut = 0; iDimOut < _fit->_outdim; iDimOut++)
             _fit->solve(iDimOut, coefficients[iDimOut], nBases);
         //
         //////////////////////////////////////////////////////
         
+		
+		ofLogNotice() << "ofxPolyFit : fit complete";
         _success = true;
     }
     
@@ -118,7 +127,8 @@ void ofxPolyFit::correlate(pfitDataSetd &dataSet)
     }
 }
 
-void ofxPolyFit::evaluate(pfitDataPointd &dataPoint, bool checkData) const
+template<class T>
+void ofxPolyFit_<T>::evaluate(pfitDataPoint<T> &dataPoint, bool checkData) const
 {
     /////////////////////////
     // Check we're ready
@@ -133,7 +143,7 @@ void ofxPolyFit::evaluate(pfitDataPointd &dataPoint, bool checkData) const
         }
         catch (char* msg)
         {
-            ofLogError() << "ofxPolyFit::evaluate : " << msg;
+            ofLogError() << "ofxPolyFit_<T>::evaluate : " << msg;
             return;
         }
     }
@@ -149,11 +159,11 @@ void ofxPolyFit::evaluate(pfitDataPointd &dataPoint, bool checkData) const
     // Evaluate per output dim
     ///////////////////////////
     //
-	DataType basis, coeff;
+	T basis, coeff;
 	for (int iDimOut=0; iDimOut< _fit->_outdim; iDimOut++)
 	{	
         
-        DataType *output = dataPoint.getOutput();
+        T *output = dataPoint.getOutput();
         
 		for (int iBasis=0; iBasis<nBases; iBasis++)
 		{
@@ -167,8 +177,8 @@ void ofxPolyFit::evaluate(pfitDataPointd &dataPoint, bool checkData) const
     //
     ///////////////////////////
 }
-
-void ofxPolyFit::evaluate(pfitDataSetd &dataSet) const
+template <class T>
+void ofxPolyFit_<T>::evaluate(pfitDataSet<T> &dataSet) const
 {
     /////////////////////////
     // Check we're ready
@@ -181,7 +191,7 @@ void ofxPolyFit::evaluate(pfitDataSetd &dataSet) const
     }
     catch (char* msg)
     {
-        ofLogError() << "ofxPolyFit::evaluate : " << msg;
+        ofLogError() << "ofxPolyFit_<T>::evaluate : " << msg;
         return;
     }
     //
@@ -192,7 +202,8 @@ void ofxPolyFit::evaluate(pfitDataSetd &dataSet) const
     // Evaluate points
     /////////////////////////
     //
-    for (pfitDataPointd point = dataSet.begin(); point != dataSet.end(); ++point)
+	#pragma omp parallel for private(point);
+    for (pfitDataPoint<T> point = dataSet.begin(); point != dataSet.end(); ++point)
     {
         evaluate(point, false);
     }
@@ -201,7 +212,8 @@ void ofxPolyFit::evaluate(pfitDataSetd &dataSet) const
     
 }
 
-DataType ofxPolyFit::evaluate(DataType input) const
+template <class T>
+T ofxPolyFit_<T>::evaluate(T input) const
 {
     checkInitialised();
     
@@ -209,22 +221,21 @@ DataType ofxPolyFit::evaluate(DataType input) const
     
     if (_fit->_outdim != 1 || _fit->_indim != 1)
     {
-        ofLogError() << "Cannot use ofxPolyFit::evaluate(float) unless indim=1, outdim=1.";
+        ofLogError() << "Cannot use ofxPolyFit_<T>::evaluate(<T>) unless indim=1, outdim=1.";
         return 0;
     }
     
-    DataType output;
-    DataType basis;
+    T output;
     
-    pfitDataPoint<DataType> point(1, 1, &input, &output);
+    pfitDataPoint<T> point(1, 1, &input, &output);
     
     evaluate(point, false);
     
     return output;
-    
 }
 
-DataType ofxPolyFit::residualSquared(pfitDataPointd const &dataPoint, bool checkData)
+template <class T>
+T ofxPolyFit_<T>::residualSquared(pfitDataPoint<T> const &dataPoint, bool checkData)
 {
     /////////////////////////
     // Check we're ready
@@ -238,7 +249,7 @@ DataType ofxPolyFit::residualSquared(pfitDataPointd const &dataPoint, bool check
         }
         catch (char* msg)
         {
-            ofLogError() << "ofxPolyFit::evaluate : " << msg;
+            ofLogError() << "ofxPolyFit_<T>::evaluate : " << msg;
             return 0;
         }
     }
@@ -250,9 +261,9 @@ DataType ofxPolyFit::residualSquared(pfitDataPointd const &dataPoint, bool check
     // Evaluate to seperate memory
     ///////////////////////////////
     //
-    DataType *outResult = new DataType[_fit->_outdim];
+    T *outResult = new T[_fit->_outdim];
     
-    pfitDataPoint<DataType> pointResult(_fit->_indim, _fit->_outdim, dataPoint.getInput(), outResult);
+    pfitDataPoint<T> pointResult(_fit->_indim, _fit->_outdim, dataPoint.getInput(), outResult);
     
     evaluate(pointResult);
     //
@@ -263,10 +274,10 @@ DataType ofxPolyFit::residualSquared(pfitDataPointd const &dataPoint, bool check
     // Calculate residual squared
     ///////////////////////////////
     //
-    DataType *outData = dataPoint.getOutput();
+    T *outData = dataPoint.getOutput();
     
-    DataType residualall = 0;
-    DataType residualx;
+    T residualall = 0;
+    T residualx;
     
     for (int i=0; i<_fit->_outdim; i++)
     {
@@ -281,7 +292,8 @@ DataType ofxPolyFit::residualSquared(pfitDataPointd const &dataPoint, bool check
     
 }
 
-DataType ofxPolyFit::residualRMS(pfitDataSetd const &dataSet)
+template<class T>
+T ofxPolyFit_<T>::residualRMS(pfitDataSet<T> const &dataSet)
 {
     /////////////////////////
     // Check we're ready
@@ -293,7 +305,7 @@ DataType ofxPolyFit::residualRMS(pfitDataSetd const &dataSet)
     }
     catch (char* msg)
     {
-        ofLogError() << "ofxPolyFit::evaluate : " << msg;
+        ofLogError() << "ofxPolyFit_<T>::evaluate : " << msg;
         return 0;
     }
     //
@@ -304,9 +316,9 @@ DataType ofxPolyFit::residualRMS(pfitDataSetd const &dataSet)
     // Go through points
     /////////////////////////
     //
-    DataType residualTotal = 0;
+    T residualTotal = 0;
     
-    for (pfitDataPoint<DataType> point = dataSet.begin(); point != dataSet.end(); ++point)
+    for (pfitDataPoint<T> point = dataSet.begin(); point != dataSet.end(); ++point)
     {
         if (point.getEnabled())
             residualTotal += residualSquared(point);
@@ -319,7 +331,7 @@ DataType ofxPolyFit::residualRMS(pfitDataSetd const &dataSet)
     // Mean squared
     /////////////////////////
     //
-    residualTotal /= DataType(dataSet.getActiveIndicesCount());
+    residualTotal /= T(dataSet.getActiveIndicesCount());
     return sqrt(residualTotal);
     //
     /////////////////////////
@@ -327,8 +339,8 @@ DataType ofxPolyFit::residualRMS(pfitDataSetd const &dataSet)
     
 }
 
-
-void ofxPolyFit::save(string filename)
+template<class T>
+void ofxPolyFit_<T>::save(string filename)
 {
 #ifdef TARGET_WIN32
 	filename = ".\\data\\" + filename;
@@ -362,12 +374,13 @@ void ofxPolyFit::save(string filename)
 	
 	for (int iDimOut=0; iDimOut<_fit->_outdim; iDimOut++)
 		fileout.write((char*) coefficients[iDimOut],
-					  sizeof(double) * nBases);
+					  sizeof(T) * nBases);
     
 	ofLog(OF_LOG_VERBOSE, "ofxPolyFit: Fit saved");
 }
 
-void ofxPolyFit::load(string filename)
+template<class T>
+void ofxPolyFit_<T>::load(string filename)
 {
 #ifdef TARGET_WIN32
 	filename = ".\\data\\" + filename;
@@ -400,14 +413,14 @@ void ofxPolyFit::load(string filename)
 	
 	for (int iDimOut=0; iDimOut<_fit->_outdim; iDimOut++)
 		filein.read((char*) coefficients[iDimOut],
-					  sizeof(double) * nBases);
+					  sizeof(T) * nBases);
 	
 	_success = true;
 }
 
 /*
 
-void ofxPolyFit::RANSAC(double* input, double* output, int nDataPoints, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold)
+void ofxPolyFit_<T>::RANSAC(double* input, double* output, int nDataPoints, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold)
 {
     //////////////////////////////////////////////////////////////////
     //taken from pseudocode at http://en.wikipedia.org/wiki/RANSAC
@@ -557,7 +570,8 @@ void ofxPolyFit::RANSAC(double* input, double* output, int nDataPoints, int maxI
             
 */
 
-bool ofxPolyFit::checkInitialised() const
+template<class T>
+bool ofxPolyFit_<T>::checkInitialised() const
 {
     if (!_isInitialised)
     {
@@ -567,3 +581,5 @@ bool ofxPolyFit::checkInitialised() const
         return true;
 }
 
+template class ofxPolyFit_<double>;
+template class ofxPolyFit_<float>;

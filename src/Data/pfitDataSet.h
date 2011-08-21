@@ -19,8 +19,10 @@ template<typename DataType>
 class pfitDataPoint
 {
     public:
+		pfitDataPoint();
         pfitDataPoint(int inputDimensions, int outputDimensions, DataType* inputData, DataType* outputData, bool enabled = true);
-    
+		pfitDataPoint(int inputDimensions, int outputDimensions, bool enabled = true);
+
         ~pfitDataPoint();
 
         void                    operator++();
@@ -73,12 +75,13 @@ class pfitDataSet
         void    clear();
         void    resize(pfitIndex const size);
         void    allocate(pfitIndex const allocation);
-    
+		
         void    wrapData(DataType* x, DataType* y);
     
         //vector style access
         pfitDataPoint<DataType>     begin() const;
         pfitDataPoint<DataType>     end() const;
+		pfitIndex					size() const { return _nDataPoints; };
         
         DataType*   getInput();
         DataType*   getOutput();
@@ -110,3 +113,7 @@ class pfitDataSet
 
 typedef pfitDataSet<double> pfitDataSetd;
 typedef pfitDataPoint<double> pfitDataPointd;
+
+typedef pfitDataSet<float> pfitDataSetf;
+typedef pfitDataPoint<float> pfitDataPointf;
+
