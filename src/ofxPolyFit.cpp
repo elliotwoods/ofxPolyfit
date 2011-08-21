@@ -75,6 +75,8 @@ void ofxPolyFit_<T>::correlate(pfitDataSet<T> &dataSet)
         return;
     try
     {
+		float startTime = ofGetElapsedTimef();
+
         //////////////////////////////////////////////////////
         // BASIC ERROR CHECKING
         //////////////////////////////////////////////////////
@@ -114,8 +116,8 @@ void ofxPolyFit_<T>::correlate(pfitDataSet<T> &dataSet)
         //
         //////////////////////////////////////////////////////
         
-		
-		ofLogNotice() << "ofxPolyFit : fit complete";
+		float endTime = ofGetElapsedTimef();
+		ofLogNotice() << "ofxPolyFit : fit complete in " << (endTime-startTime) << "s";
         _success = true;
     }
     
@@ -202,10 +204,10 @@ void ofxPolyFit_<T>::evaluate(pfitDataSet<T> &dataSet) const
     // Evaluate points
     /////////////////////////
     //
-	#pragma omp parallel for private(point);
-    for (pfitDataPoint<T> point = dataSet.begin(); point != dataSet.end(); ++point)
+	int i;
+	for (i = 0; i<dataSet.size(); ++i)
     {
-        evaluate(point, false);
+        evaluate(dataSet[i], false);
     }
     //
     /////////////////////////
