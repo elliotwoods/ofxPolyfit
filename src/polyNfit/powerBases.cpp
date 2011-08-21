@@ -16,7 +16,7 @@ powerBases::powerBases(pfitBasisType basesShape)
     _renderedNPowerOrder=0;
 }
 
-int powerBases::updateBasisIndicies(int nDimensions, int nPowerOrder)
+int powerBases::updatebasisIndices(int nDimensions, int nPowerOrder)
 {
 	_nDimensions = nDimensions;
 	_nPowerOrder = nPowerOrder;
@@ -53,7 +53,7 @@ void powerBases::calcBases()
 		{
 			
 			//
-			// calculate indicies in each dimension for this item
+			// calculate Indices in each dimension for this item
 			//
 			int iOrderSum=0;
 			
@@ -88,18 +88,18 @@ void powerBases::calcBases()
 			
 			
 			//
-			// Fill array with data indicies
+			// Fill array with data Indices
 			//
 			
-			int idxBasisIndicies;
+			int idxbasisIndices;
 			if (present)
 			{
 				vecBasisIndices.push_back(new unsigned int[_nDimensions]);
-				idxBasisIndicies = vecBasisIndices.size()-1;
+				idxbasisIndices = vecBasisIndices.size()-1;
 				
 				for (int iDimension=0; iDimension<_nDimensions; iDimension++)
 				{
-					vecBasisIndices.at(idxBasisIndicies)[iDimension]=iPossibleItemX[iDimension];
+					vecBasisIndices.at(idxbasisIndices)[iDimension]=iPossibleItemX[iDimension];
 					
 				}
 			}		

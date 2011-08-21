@@ -32,11 +32,11 @@ T polyNfit<T>::basis(int n, pfitDataPoint<T> const &x)
 	 
 	 ALGORITHM
 	 
-	 rerender the indicies table (if needed)
+	 rerender the Indices table (if needed)
 	 
 	 create output double = 1
 	 
-	 fill xPowerSpace using indicies from other program
+	 fill xPowerSpace using Indices from other program
 	 
 	 loop through dimensions
 	 output = product of all powers denoted in xPowerSpace

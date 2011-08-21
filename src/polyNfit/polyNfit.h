@@ -17,7 +17,7 @@ class polyNfit : public powerBases, public FitBase<T>
 public:
 	polyNfit(int order, int indim, int outdim, pfitBasisType basesShape) :
  		_order(order),
-		FitBase<T>(updateBasisIndicies(indim,order), indim, outdim),
+		FitBase<T>(updatebasisIndices(indim,order), indim, outdim),
 		powerBases(basesShape)
 		{
 		};

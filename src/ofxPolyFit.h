@@ -42,7 +42,7 @@ public:
 	void        save(string filename);
 	void		load(string filename);
     
-	vector<unsigned int*>				*basisIndicies;
+	vector<unsigned int*>				*basisIndices;
 	vector<T*>							coefficients;
 	
 	unsigned int						nBases;
