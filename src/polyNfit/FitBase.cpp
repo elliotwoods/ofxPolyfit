@@ -83,7 +83,6 @@ void FitBase<T>::init(pfitDataSet<T> &dataSet)
     const pfitIndex M = dataSet.getActiveIndicesCount();
     
 	const int N = A.jsize();
-	T *bas = new T[N];
 	
 	int n, k;
 	int i, j;
@@ -94,33 +93,42 @@ void FitBase<T>::init(pfitDataSet<T> &dataSet)
 			A(i,j) = 0.0;
 		}
 	}
+
+
 	// reset y
 	for(i = 0; i < N; ++i) {
 		for(j =0; j < _outdim; ++j) {
 			y[i][j] = 0.0;
 		}
 	}
-	
+
 	// Form sums over each datapoint
     T *output;
-	//#pragma omp parallel private(bas, output)
-	for(pfitDataPoint<T> point = dataSet.begin(); point != dataSet.end(); ++point)
-    {
+	pfitDataPoint<T> point;
+	int iPoint;
+	vector<T> bas(N);
+	//#pragma omp parallel private(i, j, n, output, point) num_threads(4)
+	for(iPoint = 0; iPoint < dataSet.size(); ++iPoint)
+	{
+		point = dataSet[iPoint];
+
         if (!point.getEnabled())
             continue;
-        
+		
+		
+
 		// Form matrix of bases for this data point (x values)
 		for(n = 0; n < N; ++n) {
 			bas[n] = basis(n, point);
 		}
-		
+
 		// fill in this matrix
 		for(i = 0; i < N; ++i) {
 			for(j =0; j <= i; ++j) {
 				A(i,j) += bas[i]*bas[j];
 			}
 		}
-		
+
 		// Fill in y values
         output = point.getOutput();
         //
@@ -141,7 +149,6 @@ void FitBase<T>::init(pfitDataSet<T> &dataSet)
 	// Decompose A
 	A.LUdecomp(); 
 	
-	delete [] bas;
 }
 
 template class FitBase<double>;
