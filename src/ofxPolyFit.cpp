@@ -9,18 +9,15 @@
 
 #include "ofxPolyFit.h"
 
-template<class T>
-ofxPolyFit_<T>::ofxPolyFit_() : 
-bestModel(0)
-{
+template<typename T>
+ofxPolyFit_<T>::ofxPolyFit_() {
 	_isInitialised = false;
 	_success = false;
 	nBases = 0;
 }
 
-template<class T>
-ofxPolyFit_<T>::~ofxPolyFit_()
-{
+template<typename T>
+ofxPolyFit_<T>::~ofxPolyFit_() {
 	if (_isInitialised)
     {
         for (int i=0; i<_fit->_outdim; i++)
@@ -30,9 +27,8 @@ ofxPolyFit_<T>::~ofxPolyFit_()
     }
 }
 
-template<class T>
-void ofxPolyFit_<T>::init(int order, int dimensionsIn, int dimensionsOut, pfitBasisType basisType)
-{
+template<typename T>
+void ofxPolyFit_<T>::init(int order, int dimensionsIn, int dimensionsOut, pfitBasisType basisType) {
 	if (_isInitialised)
 		uninitialise();
 	
@@ -55,9 +51,8 @@ void ofxPolyFit_<T>::init(int order, int dimensionsIn, int dimensionsOut, pfitBa
 	_isInitialised = true;
 }
 
-template<class T>
-void ofxPolyFit_<T>::uninitialise()
-{
+template<typename T>
+void ofxPolyFit_<T>::uninitialise() {
     for (int i=0; i<_fit->_outdim; i++)
         delete[] coefficients[i];
     coefficients.clear();
@@ -68,7 +63,7 @@ void ofxPolyFit_<T>::uninitialise()
     _success = false;
 }
 
-template<class T>
+template<typename T>
 void ofxPolyFit_<T>::correlate(pfitDataSet<T> &dataSet)
 {
 	if (!checkInitialised())
@@ -129,7 +124,7 @@ void ofxPolyFit_<T>::correlate(pfitDataSet<T> &dataSet)
     }
 }
 
-template<class T>
+template<typename T>
 void ofxPolyFit_<T>::evaluate(pfitDataPoint<T> &dataPoint, bool checkData) const
 {
     /////////////////////////
@@ -179,42 +174,43 @@ void ofxPolyFit_<T>::evaluate(pfitDataPoint<T> &dataPoint, bool checkData) const
     //
     ///////////////////////////
 }
-template <class T>
-void ofxPolyFit_<T>::evaluate(pfitDataSet<T> &dataSet) const
+template <typename T>
+void ofxPolyFit_<T>::evaluate(pfitDataSet<T> &dataSet, bool checkData) const
 {
-    /////////////////////////
-    // Check we're ready
-    /////////////////////////
-    //
-    try
-    {
-        checkInitialised();
-        dataSet.throwIfNotReady(_fit->_indim, _fit->_outdim);
+	if (checkData) {
+		/////////////////////////
+		// Check we're ready
+		/////////////////////////
+		//
+		try
+		{
+			checkInitialised();
+			dataSet.throwIfNotReady(_fit->_indim, _fit->_outdim);
+		}
+		catch (char* msg)
+		{
+			ofLogError() << "ofxPolyFit_<T>::evaluate : " << msg;
+			return;
+		}
+		//
+		/////////////////////////
     }
-    catch (char* msg)
-    {
-        ofLogError() << "ofxPolyFit_<T>::evaluate : " << msg;
-        return;
-    }
-    //
-    /////////////////////////
-    
+	
     
     /////////////////////////
     // Evaluate points
     /////////////////////////
     //
 	int i;
-	for (i = 0; i<dataSet.size(); ++i)
-    {
-        evaluate(dataSet[i], false);
-    }
+	pfitDataPoint<T> pt;
+	for (pt = dataSet.begin(); pt != dataSet.end(); ++pt)
+		if (pt.getEnabled())
+			evaluate(pt, false);
     //
     /////////////////////////
-    
 }
 
-template <class T>
+template <typename T>
 T ofxPolyFit_<T>::evaluate(T input) const
 {
     checkInitialised();
@@ -229,14 +225,15 @@ T ofxPolyFit_<T>::evaluate(T input) const
     
     T output;
     
-    pfitDataPoint<T> point(1, 1, &input, &output);
+	bool enabled = true;
+    pfitDataPoint<T> point(1, 1, &input, &output, &enabled);
     
     evaluate(point, false);
     
     return output;
 }
 
-template <class T>
+template <typename T>
 T ofxPolyFit_<T>::residualSquared(pfitDataPoint<T> const &dataPoint, bool checkData)
 {
     /////////////////////////
@@ -265,7 +262,8 @@ T ofxPolyFit_<T>::residualSquared(pfitDataPoint<T> const &dataPoint, bool checkD
     //
     T *outResult = new T[_fit->_outdim];
     
-    pfitDataPoint<T> pointResult(_fit->_indim, _fit->_outdim, dataPoint.getInput(), outResult);
+	bool enabled = true;
+    pfitDataPoint<T> pointResult(_fit->_indim, _fit->_outdim, dataPoint.getInput(), outResult, &enabled);
     
     evaluate(pointResult);
     //
@@ -294,7 +292,7 @@ T ofxPolyFit_<T>::residualSquared(pfitDataPoint<T> const &dataPoint, bool checkD
     
 }
 
-template<class T>
+template<typename T>
 T ofxPolyFit_<T>::residualRMS(pfitDataSet<T> const &dataSet)
 {
     /////////////////////////
@@ -341,7 +339,7 @@ T ofxPolyFit_<T>::residualRMS(pfitDataSet<T> const &dataSet)
     
 }
 
-template<class T>
+template<typename T>
 void ofxPolyFit_<T>::save(string filename)
 {
 #ifdef TARGET_WIN32
@@ -381,7 +379,7 @@ void ofxPolyFit_<T>::save(string filename)
 	ofLog(OF_LOG_VERBOSE, "ofxPolyFit: Fit saved");
 }
 
-template<class T>
+template<typename T>
 void ofxPolyFit_<T>::load(string filename)
 {
 #ifdef TARGET_WIN32
@@ -420,7 +418,7 @@ void ofxPolyFit_<T>::load(string filename)
 	_success = true;
 }
 
-template<class T>
+template<typename T>
 void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold)
 {
     //////////////////////////////////////////////////////////////////
@@ -448,12 +446,9 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
     bestError = + 1e37;
     bestConsensus.clear();
     
-    if (bestModel != 0)
-        delete[] bestModel;
-    bestModel = new T[_fit->_outdim * nBases];
+    T *bestModel = new T[_fit->_outdim * nBases];
     
-    set<int> maybeInlierIndices;
-    set<int> currentConsensus;
+    pfitIndexSet currentConsensus;
     set<int>::iterator idxIt;
     double currentError;
     
@@ -464,6 +459,8 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
     
     //loop through allowed number of iterations
 	pfitDataPoint<T> pt;
+	pfitDataSet<T> consensusSet = dataSet;
+	//
     for (int iteration=0; iteration<maxIterations; iteration++)
     {
         startTime = ofGetElapsedTimef();
@@ -472,12 +469,10 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
         // Randomly select maybe inliers
         //////////////////////////////////
         //
-        maybeInlierIndices.clear();
-        for (pt = dataSet.begin(); pt != dataSet.end(); pt++)
-            if (ofRandomuf() < selectionProbability)
-                maybeInlierIndices.insert(iPoint);
+        for (pt = dataSet.begin(); pt != dataSet.end(); ++pt)
+			pt.setEnabled((ofRandomuf() < selectionProbability));
         
-        if (maybeInlierIndices.size() < nBases)
+        if (dataSet.countEnabled() < nBases)
             continue;
         //
         //////////////////////////////////
@@ -487,7 +482,7 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
         // Perform a fit with maybe inliers
         ////////////////////////////////////
         //
-        correlate(input, output, maybeInlierIndices);
+        correlate(dataSet);
         //
         ////////////////////////////////////
         
@@ -496,20 +491,21 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
         // Build consensus set
         ////////////////////////////////////
         //
-        currentConsensus = maybeInlierIndices;
+        currentConsensus = dataSet.getActiveIndices();
         
-        for (int iPoint=0; iPoint<nDataPoints; iPoint++)
-        {
+		pfitIndexSet::iterator itIdx;
+		pfitDataPoint<T> ptTest;
+        for (int iPoint=0; iPoint<dataSet.size(); iPoint++) {
             //first check if already in set
             if (currentConsensus.count(iPoint) != 0)
                 continue;
             
-            memcpy(&vecInputPoint[0], input + (iPoint * _fit->_indim), _fit->_indim * sizeof(double)); 
-            memcpy(&vecOutputPoint[0], output + (iPoint * _fit->_outdim), _fit->_outdim * sizeof(double)); 
+			//
+			ptTest = dataSet[iPoint];
             
             //if residual for this point is less than threshold
             //then add it to the consensus set
-            if (residual(vecInputPoint, vecOutputPoint) < residualThreshold)
+            if (residualSquared(ptTest) < residualThreshold)
                 currentConsensus.insert(iPoint);
             
         }
@@ -535,8 +531,11 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
         // has the lowest error so far
         ////////////////////////////////////
         //
-        correlate(input, output, currentConsensus);
-        currentError = residual(input, output, currentConsensus);
+		//perform a fit with consensus set
+		consensusSet.setActiveIndices(currentConsensus);
+        correlate(consensusSet);
+		
+        currentError = residualRMS(consensusSet);
         
         if (currentError < bestError)
         {
@@ -570,7 +569,7 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
     ////////////////////////////////////
 }
 
-template<class T>
+template<typename T>
 bool ofxPolyFit_<T>::checkInitialised() const
 {
     if (!_isInitialised)

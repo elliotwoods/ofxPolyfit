@@ -14,7 +14,7 @@
 
 #include "polyNfit.h"
 
-template <class T>
+template <typename T>
 class ofxPolyFit_
 {
 public:
@@ -24,17 +24,17 @@ public:
 	void		init(int order, int dimensionsIn, int dimensionsOut, pfitBasisType basisType);
 	void        uninitialise();
     
-    //perform correlation
+    ///perform correlation
     void        correlate(pfitDataSet<T> &dataSet);
     
-    //general case evaluate
+    ///general case evaluate
 	void		evaluate(pfitDataPoint<T> &dataPoint, bool checkData=true) const;
-	void		evaluate(pfitDataSet<T> &dataSet) const;
+	void		evaluate(pfitDataSet<T> &dataSet, bool checkData=true) const;
     
-    //special 1D case
+    ///special 1D case evaluate
     T		    evaluate(T input) const;
     
-    //residuals
+    ///residuals
     T			residualSquared(pfitDataPoint<T> const &dataPoint, bool checkData=true);
     T			residualRMS(pfitDataSet<T> const &dataSet);
     
@@ -51,8 +51,7 @@ public:
     void        RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold);
     
     T bestError;
-    set<int> bestConsensus;
-    T *bestModel;
+    pfitIndexSet bestConsensus;
 protected:
     bool    checkInitialised() const;
 

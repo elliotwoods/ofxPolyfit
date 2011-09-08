@@ -14,14 +14,18 @@ using namespace std;
 
 //must be an unsigned integer type (e.g. unsigned long)
 typedef unsigned int pfitIndex;
+typedef set<pfitIndex> pfitIndexSet;
 
 template<typename DataType>
 class pfitDataPoint
 {
     public:
+		///Blank constructor
 		pfitDataPoint();
-        pfitDataPoint(int inputDimensions, int outputDimensions, DataType* inputData, DataType* outputData, bool enabled = true);
-		pfitDataPoint(int inputDimensions, int outputDimensions, bool enabled = true);
+		///Remote mirror constructor
+        pfitDataPoint(int inputDimensions, int outputDimensions, DataType* inputData, DataType* outputData, bool* enabled);
+		///Locally allocated constructor
+		pfitDataPoint(int inputDimensions, int outputDimensions);
 
         ~pfitDataPoint();
 
@@ -45,19 +49,20 @@ class pfitDataPoint
         DataType*   getOutput();
     
         bool        getEnabled() const;
+		void		setEnabled(const bool b);
     
         string      toString() const;
         
     protected:
-        int         _inDimensions;
-        int         _outDimensions;
+        int			_inDimensions;
+        int			_outDimensions;
 
-        DataType*   _inputData;
-        DataType*   _outputData;
+        DataType*	_inputData;
+        DataType*	_outputData;
 
-        bool        _enabled;
+        bool*		_enabled;
     
-        bool        _locallyAllocated;
+        bool		_locallyAllocated;
     
 };
 
@@ -67,7 +72,10 @@ class pfitDataSet
     public:
         pfitDataSet();
         ~pfitDataSet();
-    
+	
+		///copy data from other to here
+		pfitDataSet<DataType>& operator=(const pfitDataSet<DataType> &other);
+	
         pfitDataPoint<DataType> operator[]( pfitIndex i );
         pfitDataPoint<DataType> operator[]( pfitIndex i ) const;
         
@@ -82,15 +90,26 @@ class pfitDataSet
         pfitDataPoint<DataType>     begin() const;
         pfitDataPoint<DataType>     end() const;
 		pfitIndex					size() const { return _nDataPoints; };
+		pfitIndex					countEnabled() const;
         
-        DataType*   getInput();
-        DataType*   getOutput();
+		///Direct access to data. Generally useful for 1D case. Suggest looking into instantiating a pfitDataPoint using operator[] for accsesing data points within a set
+        DataType*			getInput();
+		const DataType*		getInput() const;
+		DataType*			getOutput();
+		const DataType*		getOutput() const;
+		bool*				getEnabled();
+		const bool*			getEnabled() const;	
+	
+		int		getInputDimensions() const;
+		int		getOutputDimensions() const;
     
         void    throwIfNotReady(int inDimensions, int outDimensions, int nBases=0) const;
     
-        set<pfitIndex>      getActiveIndices() const;
+        pfitIndexSet		getActiveIndices() const;
         pfitIndex           getActiveIndicesCount() const;
-        
+		void				setActiveIndices(const pfitIndexSet& set);
+		void				setActiveAll();
+	
         string              toString() const;
         
     protected:
