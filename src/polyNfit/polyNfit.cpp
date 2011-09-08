@@ -48,10 +48,8 @@ T polyNfit<T>::basis(int n, pfitDataPoint<T> const &x)
 	T output = 1;
 	T *xData = x.getInput();
 	
-	for (int iDimension=0; iDimension<_indim; iDimension++)
-	{
+	for (int iDimension=0; iDimension<FitBase<T>::_indim; iDimension++)
 		output *= pow(xData[iDimension],(T)vecBasisIndices.at(n)[iDimension]);
-	}
 	
 	return output;
 	//1D solution

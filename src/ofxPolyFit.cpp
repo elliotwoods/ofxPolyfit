@@ -207,7 +207,7 @@ void ofxPolyFit_<T>::evaluate(pfitDataSet<T> &dataSet) const
 	int i;
 	for (i = 0; i<dataSet.size(); ++i)
     {
-        evaluate(dataSet[i], false);
+        //evaluate(dataSet[i], false);
     }
     //
     /////////////////////////
