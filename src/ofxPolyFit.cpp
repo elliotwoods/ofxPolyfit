@@ -207,7 +207,7 @@ void ofxPolyFit_<T>::evaluate(pfitDataSet<T> &dataSet) const
 	int i;
 	for (i = 0; i<dataSet.size(); ++i)
     {
-        //evaluate(dataSet[i], false);
+        evaluate(dataSet[i], false);
     }
     //
     /////////////////////////
@@ -420,9 +420,8 @@ void ofxPolyFit_<T>::load(string filename)
 	_success = true;
 }
 
-/*
-
-void ofxPolyFit_<T>::RANSAC(double* input, double* output, int nDataPoints, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold)
+template<class T>
+void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold)
 {
     //////////////////////////////////////////////////////////////////
     //taken from pseudocode at http://en.wikipedia.org/wiki/RANSAC
@@ -445,13 +444,13 @@ void ofxPolyFit_<T>::RANSAC(double* input, double* output, int nDataPoints, int 
     //                                      in the consenus set.
     //////////////////////////////////////////////////////////////////
     
-    int inclusionThresholdCount = inclusionThreshold * float(nDataPoints);
+    int inclusionThresholdCount = inclusionThreshold * float(dataSet.size());
     bestError = + 1e37;
     bestConsensus.clear();
     
     if (bestModel != 0)
         delete[] bestModel;
-    bestModel = new double[_fit->_outdim * nBases];
+    bestModel = new T[_fit->_outdim * nBases];
     
     set<int> maybeInlierIndices;
     set<int> currentConsensus;
@@ -464,6 +463,7 @@ void ofxPolyFit_<T>::RANSAC(double* input, double* output, int nDataPoints, int 
     float startTime;
     
     //loop through allowed number of iterations
+	pfitDataPoint<T> pt;
     for (int iteration=0; iteration<maxIterations; iteration++)
     {
         startTime = ofGetElapsedTimef();
@@ -473,7 +473,7 @@ void ofxPolyFit_<T>::RANSAC(double* input, double* output, int nDataPoints, int 
         //////////////////////////////////
         //
         maybeInlierIndices.clear();
-        for (int iPoint=0; iPoint<nDataPoints; iPoint++)
+        for (pt = dataSet.begin(); pt != dataSet.end(); pt++)
             if (ofRandomuf() < selectionProbability)
                 maybeInlierIndices.insert(iPoint);
         
@@ -569,8 +569,6 @@ void ofxPolyFit_<T>::RANSAC(double* input, double* output, int nDataPoints, int 
     //
     ////////////////////////////////////
 }
-            
-*/
 
 template<class T>
 bool ofxPolyFit_<T>::checkInitialised() const
