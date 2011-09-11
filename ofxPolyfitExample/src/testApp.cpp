@@ -96,8 +96,8 @@ void testApp::initialiseData()
 	// dataset. This generally
 	// isn't necessary.
 	//
-	//dataSetRansac = dataSet; 
-    ransac.RANSAC(dataSet, 200, 0.1, 20.0f, 0.2f);
+	dataSetRansac = dataSet; 
+    ransac.RANSAC(dataSetRansac, 200, 0.1, 20.0f, 0.2f);
     //    
     ////////////////////////
 }
@@ -219,7 +219,7 @@ void testApp::draw(){
     ofSetCircleResolution(4);
     
     pfitIndexSet::iterator setIt;
-    const pfitIndexSet &s(dataSet.getActiveIndices());
+    const pfitIndexSet &s(dataSetRansac.getActiveIndices());
     for (setIt = s.begin(); setIt != s.end(); setIt++)
         ofCircle(X[*setIt], Y[*setIt], 5);
 
