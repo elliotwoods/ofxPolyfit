@@ -10,7 +10,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "matrix.h"
-#include "pfitDataSet.h"
+#include "Data/pfitDataSet.h"
 #include <vector>
 
 template <class T>

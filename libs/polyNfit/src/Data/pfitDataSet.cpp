@@ -225,6 +225,8 @@ pfitDataSet<DataType>& pfitDataSet<DataType>::operator=(const pfitDataSet<DataTy
 	memcpy(getInput(), other.getInput(), _nDataPoints * getInputDimensions() * sizeof(DataType));
 	memcpy(getOutput(), other.getOutput(), _nDataPoints * getOutputDimensions() * sizeof(DataType));
 	memcpy(getActive(), other.getActive(), _nDataPoints * getOutputDimensions() * sizeof(bool));
+
+	return *this;
 }
 
 ///////
@@ -297,40 +299,30 @@ void pfitDataSet<DataType>::allocate(pfitIndex const allocation)
         return;        
     }
     
-    DataType *newDataAreaIn = new DataType[allocation * _inDimensions];
-    DataType *newDataAreaOut = new DataType[allocation * _outDimensions];
-    bool *newDataAreaActive = new bool[allocation];
-
-    //set default enabled to 'true'
-    memset(newDataAreaActive, true, allocation * sizeof(bool));
-    
-    //reduce dataset size if outside of allocation
-    _nDataPoints = min(allocation, _nDataPoints);
-    
     /////////////////////
     // MOVE DATA
     /////////////////////
     //
-    if (_dataAllocated)
-    {
-        //move to new memory area
-        memcpy(newDataAreaIn, _inData, _nDataPoints * sizeof(DataType) * _inDimensions);
-        memcpy(newDataAreaOut, _outData, _nDataPoints * sizeof(DataType) * _outDimensions);
-        memcpy(newDataAreaActive, _activeData, _nDataPoints * sizeof(bool));
-        
-        //delete old memory area
-        delete[] _inData;
-        delete[] _outData;
-        delete[] _activeData;
-    }
+    if (_dataAllocated) {
+		_inData = (DataType*) realloc(_inData,  allocation * sizeof(DataType) * _inDimensions);
+		_outData = (DataType*) realloc(_outData, allocation * sizeof(DataType) * _outDimensions);
+		_activeData = (bool*) realloc(_activeData, allocation * sizeof(bool));
+    } else {
+		_inData = (DataType*) malloc(allocation * sizeof(DataType) * _inDimensions);
+		_outData = (DataType*) malloc(allocation * sizeof(DataType) * _outDimensions);
+		_activeData = (bool*) malloc(allocation * sizeof(bool));
+	}
     //
     /////////////////////
-    
-    //move pointer to new area
-    _inData = newDataAreaIn;
-    _outData = newDataAreaOut;
-    _activeData = newDataAreaActive;
-    
+ 
+	//default active = true for new allocated points
+	if (_nDataPointsAllocated < allocation)
+		memset(_activeData+_nDataPointsAllocated, true, allocation - _nDataPointsAllocated);
+
+		
+	//reduce dataset size if outside of allocation
+    _nDataPoints = min(allocation, _nDataPoints);
+
     _nDataPointsAllocated = allocation;
     _dataAllocated = true;
 }

@@ -422,6 +422,7 @@ template<typename T>
 void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold)
 {
     checkInitialised();
+	
 	//////////////////////////////////////////////////////////////////
     //taken from pseudocode at http://en.wikipedia.org/wiki/RANSAC
     //////////////////////////////////////////////////////////////////
@@ -457,10 +458,10 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
     
     //loop through allowed number of iterations
 	pfitDataPoint<T> pt;
-	pfitDataSet<T> consensusSet = dataSet;
+	
 	//
-    for (int iteration=0; iteration<maxIterations; iteration++)
-    {
+	
+    for (int iteration=0; iteration<maxIterations; iteration++) {
         startTime = ofGetElapsedTimef();
         
         //////////////////////////////////
@@ -530,10 +531,10 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
         ////////////////////////////////////
         //
 		//perform a fit with consensus set
-		consensusSet.setActiveIndices(currentConsensus);
-        correlate(consensusSet);
+		dataSet.setActiveIndices(currentConsensus);
+        correlate(dataSet);
 		
-        currentError = residualRMS(consensusSet);
+        currentError = residualRMS(dataSet);
         
         if (currentError < bestError)
         {
@@ -564,7 +565,8 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
         for (int iBasis=0; iBasis<nBases; iBasis++)
         {
             coefficients[iOutDim][iBasis] = bestModel[iOutDim * nBases + iBasis];
-        }    
+        }
+	delete[] bestModel;
     //
     ////////////////////////////////////
 }
