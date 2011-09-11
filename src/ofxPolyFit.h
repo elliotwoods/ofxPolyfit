@@ -61,3 +61,5 @@ protected:
 };
 
 typedef ofxPolyFit_<float> ofxPolyFit;
+typedef ofxPolyFit_<double> ofxPolyFitd;
+typedef ofxPolyFit_<float> ofxPolyFitf;
