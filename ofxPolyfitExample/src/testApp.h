@@ -26,10 +26,10 @@ class testApp : public ofBaseApp{
 		void mouseReleased(int x, int y, int button);
 		void windowResized(int w, int h);
     
-		//ofxPolyFit						fit; //this gives a float fit
-        ofxPolyFit_<DataType>             fit;
-		//ofxPolyFit          ransac;
-        pfitDataSet<DataType>     dataSet;
+        ofxPolyFit_<DataType>	fit;
+        pfitDataSet<DataType>	dataSet;
+		ofxPolyFit_<DataType>	ransac;
+        pfitDataSet<DataType>	dataSetRansac;
     
         float   fundamental(float x);
     
@@ -41,7 +41,7 @@ class testApp : public ofBaseApp{
     
         float   meanNoiseOnValid;
     
-        bool         isAllocated;
+        bool	isAllocated;
     
         float   mouseX;
 

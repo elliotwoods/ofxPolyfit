@@ -80,7 +80,7 @@ void FitBase<T>::solve(int I, T *x, unsigned int &nCoefficients) {
 template<class T>
 void FitBase<T>::init(pfitDataSet<T> &dataSet)
 {
-    const pfitIndex M = dataSet.getActiveIndicesCount();
+    const pfitIndex M = dataSet.getActiveCount();
     
 	const int N = A.jsize();
 	T *bas = new T[N];
@@ -105,7 +105,7 @@ void FitBase<T>::init(pfitDataSet<T> &dataSet)
     T *output;
 	for(pfitDataPoint<T> point = dataSet.begin(); point != dataSet.end(); ++point)
     {
-        if (!point.getEnabled())
+        if (!point.getActive())
             continue;
         
 		// Form matrix of bases for this data point (x values)

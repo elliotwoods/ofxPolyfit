@@ -204,7 +204,7 @@ void ofxPolyFit_<T>::evaluate(pfitDataSet<T> &dataSet, bool checkData) const
 	int i;
 	pfitDataPoint<T> pt;
 	for (pt = dataSet.begin(); pt != dataSet.end(); ++pt)
-		if (pt.getEnabled())
+		if (pt.getActive())
 			evaluate(pt, false);
     //
     /////////////////////////
@@ -320,7 +320,7 @@ T ofxPolyFit_<T>::residualRMS(pfitDataSet<T> const &dataSet)
     
     for (pfitDataPoint<T> point = dataSet.begin(); point != dataSet.end(); ++point)
     {
-        if (point.getEnabled())
+        if (point.getActive())
             residualTotal += residualSquared(point);
     }
     //
@@ -331,7 +331,7 @@ T ofxPolyFit_<T>::residualRMS(pfitDataSet<T> const &dataSet)
     // Mean squared
     /////////////////////////
     //
-    residualTotal /= T(dataSet.getActiveIndicesCount());
+    residualTotal /= T(dataSet.getActiveCount());
     return sqrt(residualTotal);
     //
     /////////////////////////
@@ -421,7 +421,8 @@ void ofxPolyFit_<T>::load(string filename)
 template<typename T>
 void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold)
 {
-    //////////////////////////////////////////////////////////////////
+    checkInitialised();
+	//////////////////////////////////////////////////////////////////
     //taken from pseudocode at http://en.wikipedia.org/wiki/RANSAC
     //////////////////////////////////////////////////////////////////
     // parameters:
@@ -444,16 +445,13 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
     
     int inclusionThresholdCount = inclusionThreshold * float(dataSet.size());
     bestError = + 1e37;
-    bestConsensus.clear();
+	pfitIndexSet bestConsensus;
     
     T *bestModel = new T[_fit->_outdim * nBases];
     
     pfitIndexSet currentConsensus;
     set<int>::iterator idxIt;
     double currentError;
-    
-    vector<double> vecInputPoint(_fit->_indim);
-    vector<double> vecOutputPoint(_fit->_outdim);
     
     float startTime;
     
@@ -470,9 +468,9 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
         //////////////////////////////////
         //
         for (pt = dataSet.begin(); pt != dataSet.end(); ++pt)
-			pt.setEnabled((ofRandomuf() < selectionProbability));
+			pt.setActive(ofRandomuf() < selectionProbability);
         
-        if (dataSet.countEnabled() < nBases)
+        if (dataSet.getActiveCount() < nBases)
             continue;
         //
         //////////////////////////////////
@@ -554,7 +552,9 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
         
         cout << "Iteration #" << iteration << " took " << (ofGetElapsedTimef() - startTime) << "s to complete. bestError=" << bestError << " bestConsensus count=" << bestConsensus.size() << "\n";
     }
-    
+
+    //reload best consensus
+	dataSet.setActiveIndices(bestConsensus);
     
     ////////////////////////////////////
     // Reload best model as current fit

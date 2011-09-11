@@ -51,7 +51,6 @@ public:
     void        RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold);
     
     T bestError;
-    pfitIndexSet bestConsensus;
 protected:
     bool    checkInitialised() const;
 

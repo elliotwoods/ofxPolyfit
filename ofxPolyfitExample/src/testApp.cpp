@@ -2,10 +2,10 @@
 
 float testApp::fundamental(float x)
 {
-    //This is the actual function that the
-    //data pattern follows.
-    //even though we generally expect
-    //there to also be noise and bad data
+	//For this example, we start with a 2nd
+	//order polynomial and add some noise,
+	//then try to use ofxPolyfit to find
+	//the original polynomial
     
     //feel free to change this function
     //and see how polyfit reacts
@@ -30,7 +30,7 @@ void testApp::setup(){
     isAllocated = false;
     
     fit.init(2, 1, 1, BASIS_SHAPE_SQUARE);
-    //ransac.init(2, 1, 1, BASIS_SHAPE_SQUARE);
+    ransac.init(2, 1, 1, BASIS_SHAPE_SQUARE);
     
     initialiseData();
 
@@ -81,7 +81,23 @@ void testApp::initialiseData()
     ////////////////////////
     //
     fit.correlate(dataSet);
-    //ransac.RANSAC(X, Y, nPoints, 50, 0.1, 20.0f, 0.5f);
+	//
+    ////////////////////////
+
+	
+    ////////////////////////
+    // Perform RANSAC fit
+    ////////////////////////
+    // In the ransac dataset we
+	// mark the useful data points
+	// within the dataset. So
+	// let's make a copy so we don't
+	// affect the standard fit's
+	// dataset. This generally
+	// isn't necessary.
+	//
+	//dataSetRansac = dataSet; 
+    ransac.RANSAC(dataSet, 200, 0.1, 20.0f, 0.2f);
     //    
     ////////////////////////
 }
@@ -141,7 +157,7 @@ void testApp::draw(){
     ///////////////////////
 
     
-    /*
+    
     ///////////////////////////
     //  Draw RANSAC fit line
     ///////////////////////////
@@ -161,7 +177,7 @@ void testApp::draw(){
     ofPopStyle();
     //
     ///////////////////////
-    */
+    
     
     
     ///////////////////////
@@ -191,7 +207,7 @@ void testApp::draw(){
     ///////////////////////
     
     
-    /*
+    
     ///////////////////////////////////////
     //  Highlight selected consensus points
     ///////////////////////////////////////
@@ -202,15 +218,15 @@ void testApp::draw(){
     ofSetLineWidth(1);
     ofSetCircleResolution(4);
     
-    set<int>::iterator setIt;
-    
-    for (setIt = ransac.bestConsensus.begin(); setIt != ransac.bestConsensus.end(); setIt++)
+    pfitIndexSet::iterator setIt;
+    const pfitIndexSet &s(dataSet.getActiveIndices());
+    for (setIt = s.begin(); setIt != s.end(); setIt++)
         ofCircle(X[*setIt], Y[*setIt], 5);
 
     ofPopStyle();
     //
     ///////////////////////////////////////    
-    */
+    
     
     ///////////////////////
     //  Draw cursor line
@@ -248,7 +264,7 @@ void testApp::draw(){
     
     strLookups << "Standard fit [" << mouseX << "]: " << fit.evaluate(mouseX) << "\n";    
     
-    //strLookups << "RANSAC fit [" << idxCrappyData << "]: " << ransac.evaluate(mouseX) << "\n";    
+    strLookups << "RANSAC fit [" << idxCrappyData << "]: " << ransac.evaluate(mouseX) << "\n";    
     
     ofDrawBitmapString(strLookups.str(), 10, 10);
     //

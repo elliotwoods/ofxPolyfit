@@ -23,7 +23,7 @@ class pfitDataPoint
 		///Blank constructor
 		pfitDataPoint();
 		///Remote mirror constructor
-        pfitDataPoint(int inputDimensions, int outputDimensions, DataType* inputData, DataType* outputData, bool* enabled);
+        pfitDataPoint(int inputDimensions, int outputDimensions, DataType* inputData, DataType* outputData, bool* activeData);
 		///Locally allocated constructor
 		pfitDataPoint(int inputDimensions, int outputDimensions);
 
@@ -48,8 +48,8 @@ class pfitDataPoint
         DataType*   getInput();
         DataType*   getOutput();
     
-        bool        getEnabled() const;
-		void		setEnabled(const bool b);
+        bool        getActive() const;
+		void		setActive(const bool b);
     
         string      toString() const;
         
@@ -60,7 +60,7 @@ class pfitDataPoint
         DataType*	_inputData;
         DataType*	_outputData;
 
-        bool*		_enabled;
+        bool*		_activeData;
     
         bool		_locallyAllocated;
     
@@ -90,15 +90,14 @@ class pfitDataSet
         pfitDataPoint<DataType>     begin() const;
         pfitDataPoint<DataType>     end() const;
 		pfitIndex					size() const { return _nDataPoints; };
-		pfitIndex					countEnabled() const;
         
 		///Direct access to data. Generally useful for 1D case. Suggest looking into instantiating a pfitDataPoint using operator[] for accsesing data points within a set
         DataType*			getInput();
 		const DataType*		getInput() const;
 		DataType*			getOutput();
 		const DataType*		getOutput() const;
-		bool*				getEnabled();
-		const bool*			getEnabled() const;	
+		bool*				getActive();
+		const bool*			getActive() const;	
 	
 		int		getInputDimensions() const;
 		int		getOutputDimensions() const;
@@ -106,9 +105,10 @@ class pfitDataSet
         void    throwIfNotReady(int inDimensions, int outDimensions, int nBases=0) const;
     
         pfitIndexSet		getActiveIndices() const;
-        pfitIndex           getActiveIndicesCount() const;
+        pfitIndex           getActiveCount() const;
 		void				setActiveIndices(const pfitIndexSet& set);
 		void				setActiveAll();
+		void				setActiveNone();
 	
         string              toString() const;
         
@@ -125,7 +125,7 @@ class pfitDataSet
     
         DataType*   _inData; // stored XYZXYZXYZ
         DataType*   _outData;
-        bool*       _enabledData;
+        bool*       _activeData;
     
         bool        _dataAllocated;
 };
