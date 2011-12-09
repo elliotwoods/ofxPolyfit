@@ -56,6 +56,8 @@ public:
 
 	string      toString() const;
 
+	pfitDataPoint<DataType> makeCopy() const;
+
 protected:
 	int			_inDimensions;
 	int			_outDimensions;
