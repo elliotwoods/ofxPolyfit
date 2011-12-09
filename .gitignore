@@ -1,1 +1,12 @@
-.DS_Store
+*.depend
+*.layout
+*.mode*v3
+*.pbxuser
+*.app*
+*.DS_*
+
+.svn/
+obj/
+bin/
+build/
+!data/
