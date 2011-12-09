@@ -11,6 +11,9 @@
 ///////////////////////////////////////////////////////
 // pfitDataPoint
 //
+template<typename DataType>
+bool pfitDataPoint<DataType>::trueValue = true;
+
 
 ///blank constructor
 template<typename DataType>

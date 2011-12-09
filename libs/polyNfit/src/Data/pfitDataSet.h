@@ -23,7 +23,7 @@ class pfitDataPoint
 		///Blank constructor
 		pfitDataPoint();
 		///Remote mirror constructor
-        pfitDataPoint(int inputDimensions, int outputDimensions, DataType* inputData, DataType* outputData, bool* activeData);
+        pfitDataPoint(int inputDimensions, int outputDimensions, DataType* inputData, DataType* outputData, bool* activeData=&trueValue);
 		///Locally allocated constructor
 		pfitDataPoint(int inputDimensions, int outputDimensions);
 
@@ -63,6 +63,9 @@ class pfitDataPoint
         bool*		_activeData;
     
         bool		_locallyAllocated;
+	
+		///Default true value to use when no activeData is being set
+		static bool	trueValue;
     
 };
 
