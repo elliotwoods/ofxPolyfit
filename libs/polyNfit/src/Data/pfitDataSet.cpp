@@ -12,8 +12,7 @@
 // pfitDataPoint
 //
 template<typename DataType>
-bool pfitDataPoint<DataType>::trueValue = true;
-
+bool pfitDataPoint<DataType>::_activeTrue = true;
 
 ///blank constructor
 template<typename DataType>
@@ -190,6 +189,16 @@ string pfitDataPoint<DataType>::toString() const {
 }
 
 
+template <typename DataType>
+pfitDataPoint<DataType> pfitDataPoint<DataType>::makeCopy() const {
+	pfitDataPoint<DataType> p(this->_inDimensions, this->_outDimensions);
+
+	memcpy(p.getInput(), this->getInput(), _inDimensions * sizeof(DataType));
+	memcpy(p.getOutput(), this->getOutput(), _outDimensions * sizeof(DataType));
+	p.setActive(this->getActive());
+
+	return p;
+}
 //
 ///////////////////////////////////////////////////////
 
