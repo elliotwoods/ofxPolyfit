@@ -13,6 +13,7 @@
 #include <set>
 
 #include "polyNfit.h"
+#include "ofxPolyFitUtils.h"
 
 template <typename T>
 class ofxPolyFit_
@@ -60,6 +61,6 @@ protected:
 	bool			_success;
 };
 
-typedef ofxPolyFit_<float> ofxPolyFit;
 typedef ofxPolyFit_<double> ofxPolyFitd;
 typedef ofxPolyFit_<float> ofxPolyFitf;
+typedef ofxPolyFitf ofxPolyFit;
