@@ -10,6 +10,8 @@
 #include <vector>
 #include <set>
 #include <sstream>
+#include <fstream>
+#include <iostream>
 
 #include "pfitDataPoint.h"
 
@@ -63,7 +65,10 @@ public:
 	void				setActiveAll();
 	void				setActiveNone();
 
-	string              toString() const;
+	string	toString() const;
+	
+	void	load(string filename);
+	void	save(string filename);
 
 protected:
 	void    deAllocate();

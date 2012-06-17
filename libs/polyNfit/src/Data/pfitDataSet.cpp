@@ -282,6 +282,46 @@ string pfitDataSet<DataType>::toString() const {
     return output.str();
 }
 
+////
+
+template<typename DataType>
+void pfitDataSet<DataType>::load(string filename) {
+	if (filename=="")
+		return;
+	
+	ifstream file(filename.c_str(), ios::binary);
+	if (file.good()) {
+		this->deAllocate();
+		
+		file.read((char*) &_inDimensions, sizeof(_inDimensions));
+		file.read((char*) &_outDimensions, sizeof(_outDimensions));
+		file.read((char*) &_nDataPoints, sizeof(_nDataPoints));
+		
+		this->resize(_nDataPoints);
+		
+		file.read((char*) _inData, sizeof(DataType) * _nDataPoints * _inDimensions);
+		file.read((char*) _outData, sizeof(DataType) * _nDataPoints * _outDimensions);
+		
+		file.close();
+	}
+}
+
+template<typename DataType>
+void pfitDataSet<DataType>::save(string filename) {
+	if (filename=="")
+		return;
+	
+	ofstream file(filename.c_str(), ios::binary);
+	if (file.good()) {		
+		file.write((char*) &_inDimensions, sizeof(_inDimensions));
+		file.write((char*) &_outDimensions, sizeof(_outDimensions));
+		file.write((char*) &_nDataPoints, sizeof(_nDataPoints));	
+		file.write((char*) _inData, sizeof(DataType) * _nDataPoints * _inDimensions);
+		file.write((char*) _outData, sizeof(DataType) * _nDataPoints * _outDimensions);
+		file.close();
+	}
+}
+
 /////////////////////////
 // protected
 

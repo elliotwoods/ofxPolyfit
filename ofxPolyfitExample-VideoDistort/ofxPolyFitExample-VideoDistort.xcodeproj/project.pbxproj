@@ -7,14 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8B2D78C813AE2CC700B2B4D0 /* ofxPolyFit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B2D78B913AE2CC700B2B4D0 /* ofxPolyFit.cpp */; };
-		8BE7E8E1140F7B2300A02F40 /* basisTransformIndices.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE7E8D2140F7B2300A02F40 /* basisTransformIndices.cpp */; };
-		8BE7E8E2140F7B2300A02F40 /* pfitBasis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE7E8D5140F7B2300A02F40 /* pfitBasis.cpp */; };
-		8BE7E8E3140F7B2300A02F40 /* pfitDataSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE7E8D7140F7B2300A02F40 /* pfitDataSet.cpp */; };
-		8BE7E8E4140F7B2300A02F40 /* FitBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE7E8D9140F7B2300A02F40 /* FitBase.cpp */; };
-		8BE7E8E5140F7B2300A02F40 /* matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE7E8DB140F7B2300A02F40 /* matrix.cpp */; };
-		8BE7E8E6140F7B2300A02F40 /* polyNfit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE7E8DD140F7B2300A02F40 /* polyNfit.cpp */; };
-		8BE7E8E7140F7B2300A02F40 /* powerBases.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE7E8DF140F7B2300A02F40 /* powerBases.cpp */; };
+		8B186D57158E30EF00EBF7FA /* DistortablePlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B186D56158E30EF00EBF7FA /* DistortablePlane.cpp */; };
+		8B186D5E158E320100EBF7FA /* ofxPolyFit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B186D5A158E320100EBF7FA /* ofxPolyFit.cpp */; };
+		8B186D5F158E320100EBF7FA /* ofxPolyFitUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B186D5C158E320100EBF7FA /* ofxPolyFitUtils.cpp */; };
+		8B186D76158E329700EBF7FA /* basisTransformIndices.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B186D65158E329700EBF7FA /* basisTransformIndices.cpp */; };
+		8B186D77158E329700EBF7FA /* pfitBasis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B186D68158E329700EBF7FA /* pfitBasis.cpp */; };
+		8B186D78158E329700EBF7FA /* pfitDataPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B186D6A158E329700EBF7FA /* pfitDataPoint.cpp */; };
+		8B186D79158E329700EBF7FA /* pfitDataSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B186D6C158E329700EBF7FA /* pfitDataSet.cpp */; };
+		8B186D7A158E329700EBF7FA /* FitBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B186D6E158E329700EBF7FA /* FitBase.cpp */; };
+		8B186D7B158E329700EBF7FA /* matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B186D70158E329700EBF7FA /* matrix.cpp */; };
+		8B186D7C158E329700EBF7FA /* polyNfit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B186D72158E329700EBF7FA /* polyNfit.cpp */; };
+		8B186D7D158E329700EBF7FA /* powerBases.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B186D74158E329700EBF7FA /* powerBases.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -26,6 +29,8 @@
 		E45BE9810E8CC7DD009D7055 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9770E8CC7DD009D7055 /* CoreServices.framework */; };
 		E45BE9830E8CC7DD009D7055 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9790E8CC7DD009D7055 /* OpenGL.framework */; };
 		E45BE9840E8CC7DD009D7055 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */; };
+		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
+		E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */; };
 		E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424410CC5A17004149E2 /* AppKit.framework */; };
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
@@ -63,23 +68,28 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8B2D78B913AE2CC700B2B4D0 /* ofxPolyFit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxPolyFit.cpp; sourceTree = "<group>"; };
-		8B2D78BA13AE2CC700B2B4D0 /* ofxPolyFit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPolyFit.h; sourceTree = "<group>"; };
-		8B2D78CF13AE2DB200B2B4D0 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README; path = ../README; sourceTree = "<group>"; };
-		8BE7E8D2140F7B2300A02F40 /* basisTransformIndices.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basisTransformIndices.cpp; sourceTree = "<group>"; };
-		8BE7E8D3140F7B2300A02F40 /* basisTransformIndices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = basisTransformIndices.h; sourceTree = "<group>"; };
-		8BE7E8D5140F7B2300A02F40 /* pfitBasis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pfitBasis.cpp; sourceTree = "<group>"; };
-		8BE7E8D6140F7B2300A02F40 /* pfitBasis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pfitBasis.h; sourceTree = "<group>"; };
-		8BE7E8D7140F7B2300A02F40 /* pfitDataSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pfitDataSet.cpp; sourceTree = "<group>"; };
-		8BE7E8D8140F7B2300A02F40 /* pfitDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pfitDataSet.h; sourceTree = "<group>"; };
-		8BE7E8D9140F7B2300A02F40 /* FitBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitBase.cpp; sourceTree = "<group>"; };
-		8BE7E8DA140F7B2300A02F40 /* FitBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitBase.h; sourceTree = "<group>"; };
-		8BE7E8DB140F7B2300A02F40 /* matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix.cpp; sourceTree = "<group>"; };
-		8BE7E8DC140F7B2300A02F40 /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
-		8BE7E8DD140F7B2300A02F40 /* polyNfit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = polyNfit.cpp; sourceTree = "<group>"; };
-		8BE7E8DE140F7B2300A02F40 /* polyNfit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = polyNfit.h; sourceTree = "<group>"; };
-		8BE7E8DF140F7B2300A02F40 /* powerBases.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = powerBases.cpp; sourceTree = "<group>"; };
-		8BE7E8E0140F7B2300A02F40 /* powerBases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = powerBases.h; sourceTree = "<group>"; };
+		8B186D56158E30EF00EBF7FA /* DistortablePlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DistortablePlane.cpp; sourceTree = "<group>"; };
+		8B186D58158E30FA00EBF7FA /* DistortablePlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistortablePlane.h; sourceTree = "<group>"; };
+		8B186D5A158E320100EBF7FA /* ofxPolyFit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxPolyFit.cpp; sourceTree = "<group>"; };
+		8B186D5B158E320100EBF7FA /* ofxPolyFit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPolyFit.h; sourceTree = "<group>"; };
+		8B186D5C158E320100EBF7FA /* ofxPolyFitUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxPolyFitUtils.cpp; sourceTree = "<group>"; };
+		8B186D5D158E320100EBF7FA /* ofxPolyFitUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPolyFitUtils.h; sourceTree = "<group>"; };
+		8B186D65158E329700EBF7FA /* basisTransformIndices.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basisTransformIndices.cpp; sourceTree = "<group>"; };
+		8B186D66158E329700EBF7FA /* basisTransformIndices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = basisTransformIndices.h; sourceTree = "<group>"; };
+		8B186D68158E329700EBF7FA /* pfitBasis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pfitBasis.cpp; sourceTree = "<group>"; };
+		8B186D69158E329700EBF7FA /* pfitBasis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pfitBasis.h; sourceTree = "<group>"; };
+		8B186D6A158E329700EBF7FA /* pfitDataPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pfitDataPoint.cpp; sourceTree = "<group>"; };
+		8B186D6B158E329700EBF7FA /* pfitDataPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pfitDataPoint.h; sourceTree = "<group>"; };
+		8B186D6C158E329700EBF7FA /* pfitDataSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pfitDataSet.cpp; sourceTree = "<group>"; };
+		8B186D6D158E329700EBF7FA /* pfitDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pfitDataSet.h; sourceTree = "<group>"; };
+		8B186D6E158E329700EBF7FA /* FitBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitBase.cpp; sourceTree = "<group>"; };
+		8B186D6F158E329700EBF7FA /* FitBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitBase.h; sourceTree = "<group>"; };
+		8B186D70158E329700EBF7FA /* matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix.cpp; sourceTree = "<group>"; };
+		8B186D71158E329700EBF7FA /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
+		8B186D72158E329700EBF7FA /* polyNfit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = polyNfit.cpp; sourceTree = "<group>"; };
+		8B186D73158E329700EBF7FA /* polyNfit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = polyNfit.h; sourceTree = "<group>"; };
+		8B186D74158E329700EBF7FA /* powerBases.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = powerBases.cpp; sourceTree = "<group>"; };
+		8B186D75158E329700EBF7FA /* powerBases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = powerBases.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -91,7 +101,10 @@
 		E45BE9770E8CC7DD009D7055 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		E45BE9790E8CC7DD009D7055 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		E4B69B5B0A3A1756003C02F2 /* emptyExampleDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = emptyExampleDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69B5B0A3A1756003C02F2 /* ofxPolyFitExample-VideoDistortDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ofxPolyFitExample-VideoDistortDebug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
+		E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = testApp.cpp; path = src/testApp.cpp; sourceTree = SOURCE_ROOT; };
+		E4B69E1F0A3A1BDC003C02F2 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = testApp.h; path = src/testApp.h; sourceTree = SOURCE_ROOT; };
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
 		E4C2424410CC5A17004149E2 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		E4C2424510CC5A17004149E2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -125,51 +138,71 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8B2D78B313AE2CC700B2B4D0 /* src */ = {
+		8B186D59158E320100EBF7FA /* ofxPolyfit */ = {
 			isa = PBXGroup;
 			children = (
-				8BE7E8D1140F7B2300A02F40 /* polyNfit */,
-				8B2D78B913AE2CC700B2B4D0 /* ofxPolyFit.cpp */,
-				8B2D78BA13AE2CC700B2B4D0 /* ofxPolyFit.h */,
+				8B186D62158E329700EBF7FA /* libs */,
+				8B186D61158E328700EBF7FA /* src */,
 			);
-			name = src;
+			name = ofxPolyfit;
 			path = ../src;
 			sourceTree = "<group>";
 		};
-		8B50E63813ADFA3300732D0D /* ofxPolyfit */ = {
+		8B186D61158E328700EBF7FA /* src */ = {
 			isa = PBXGroup;
 			children = (
-				8B2D78B313AE2CC700B2B4D0 /* src */,
-				8B2D78CF13AE2DB200B2B4D0 /* README */,
+				8B186D5A158E320100EBF7FA /* ofxPolyFit.cpp */,
+				8B186D5B158E320100EBF7FA /* ofxPolyFit.h */,
+				8B186D5C158E320100EBF7FA /* ofxPolyFitUtils.cpp */,
+				8B186D5D158E320100EBF7FA /* ofxPolyFitUtils.h */,
 			);
-			name = ofxPolyfit;
+			name = src;
 			sourceTree = "<group>";
 		};
-		8BE7E8D1140F7B2300A02F40 /* polyNfit */ = {
+		8B186D62158E329700EBF7FA /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				8BE7E8D2140F7B2300A02F40 /* basisTransformIndices.cpp */,
-				8BE7E8D3140F7B2300A02F40 /* basisTransformIndices.h */,
-				8BE7E8D4140F7B2300A02F40 /* Data */,
-				8BE7E8D9140F7B2300A02F40 /* FitBase.cpp */,
-				8BE7E8DA140F7B2300A02F40 /* FitBase.h */,
-				8BE7E8DB140F7B2300A02F40 /* matrix.cpp */,
-				8BE7E8DC140F7B2300A02F40 /* matrix.h */,
-				8BE7E8DD140F7B2300A02F40 /* polyNfit.cpp */,
-				8BE7E8DE140F7B2300A02F40 /* polyNfit.h */,
-				8BE7E8DF140F7B2300A02F40 /* powerBases.cpp */,
-				8BE7E8E0140F7B2300A02F40 /* powerBases.h */,
+				8B186D63158E329700EBF7FA /* polyNfit */,
+			);
+			name = libs;
+			path = ../libs;
+			sourceTree = "<group>";
+		};
+		8B186D63158E329700EBF7FA /* polyNfit */ = {
+			isa = PBXGroup;
+			children = (
+				8B186D64158E329700EBF7FA /* src */,
 			);
 			path = polyNfit;
 			sourceTree = "<group>";
 		};
-		8BE7E8D4140F7B2300A02F40 /* Data */ = {
+		8B186D64158E329700EBF7FA /* src */ = {
 			isa = PBXGroup;
 			children = (
-				8BE7E8D5140F7B2300A02F40 /* pfitBasis.cpp */,
-				8BE7E8D6140F7B2300A02F40 /* pfitBasis.h */,
-				8BE7E8D7140F7B2300A02F40 /* pfitDataSet.cpp */,
-				8BE7E8D8140F7B2300A02F40 /* pfitDataSet.h */,
+				8B186D65158E329700EBF7FA /* basisTransformIndices.cpp */,
+				8B186D66158E329700EBF7FA /* basisTransformIndices.h */,
+				8B186D67158E329700EBF7FA /* Data */,
+				8B186D6E158E329700EBF7FA /* FitBase.cpp */,
+				8B186D6F158E329700EBF7FA /* FitBase.h */,
+				8B186D70158E329700EBF7FA /* matrix.cpp */,
+				8B186D71158E329700EBF7FA /* matrix.h */,
+				8B186D72158E329700EBF7FA /* polyNfit.cpp */,
+				8B186D73158E329700EBF7FA /* polyNfit.h */,
+				8B186D74158E329700EBF7FA /* powerBases.cpp */,
+				8B186D75158E329700EBF7FA /* powerBases.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		8B186D67158E329700EBF7FA /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				8B186D68158E329700EBF7FA /* pfitBasis.cpp */,
+				8B186D69158E329700EBF7FA /* pfitBasis.h */,
+				8B186D6A158E329700EBF7FA /* pfitDataPoint.cpp */,
+				8B186D6B158E329700EBF7FA /* pfitDataPoint.h */,
+				8B186D6C158E329700EBF7FA /* pfitDataSet.cpp */,
+				8B186D6D158E329700EBF7FA /* pfitDataSet.h */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -177,7 +210,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
-				8B50E63813ADFA3300732D0D /* ofxPolyfit */,
+				8B186D59158E320100EBF7FA /* ofxPolyfit */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -229,17 +262,24 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
+				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
-				E4B69B5B0A3A1756003C02F2 /* emptyExampleDebug.app */,
+				E4B69B5B0A3A1756003C02F2 /* ofxPolyFitExample-VideoDistortDebug.app */,
 			);
 			sourceTree = "<group>";
 		};
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
+				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
+				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
+				8B186D56158E30EF00EBF7FA /* DistortablePlane.cpp */,
+				8B186D58158E30FA00EBF7FA /* DistortablePlane.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -247,10 +287,8 @@
 		E4EEC9E9138DF44700A80321 /* openFrameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */,
 				E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */,
-				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 			);
 			name = openFrameworks;
 			sourceTree = "<group>";
@@ -258,9 +296,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E4B69B5A0A3A1756003C02F2 /* emptyExample */ = {
+		E4B69B5A0A3A1756003C02F2 /* ofxPolyFitExample-VideoDistort */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "emptyExample" */;
+			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "ofxPolyFitExample-VideoDistort" */;
 			buildPhases = (
 				E4B69B580A3A1756003C02F2 /* Sources */,
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
@@ -272,9 +310,9 @@
 			dependencies = (
 				E4EEB9AC138B136A00A80321 /* PBXTargetDependency */,
 			);
-			name = emptyExample;
+			name = "ofxPolyFitExample-VideoDistort";
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* emptyExampleDebug.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* ofxPolyFitExample-VideoDistortDebug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -282,7 +320,7 @@
 /* Begin PBXProject section */
 		E4B69B4C0A3A1720003C02F2 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "ofxPolyfitExample-2D" */;
+			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "ofxPolyFitExample-VideoDistort" */;
 			compatibilityVersion = "Xcode 2.4";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -303,7 +341,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				E4B69B5A0A3A1756003C02F2 /* emptyExample */,
+				E4B69B5A0A3A1756003C02F2 /* ofxPolyFitExample-VideoDistort */,
 			);
 		};
 /* End PBXProject section */
@@ -330,7 +368,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -f ../../../libs/fmodex/lib/osx/libfmodex.dylib $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/libfmodex.dylib;\ninstall_name_tool -change ./libfmodex.dylib @executable_path/libfmodex.dylib $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME";
+			shellScript = "cp -f ../../../libs/fmodex/lib/osx/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/libfmodex.dylib\"; install_name_tool -change ./libfmodex.dylib @executable_path/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\";";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -339,14 +377,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B2D78C813AE2CC700B2B4D0 /* ofxPolyFit.cpp in Sources */,
-				8BE7E8E1140F7B2300A02F40 /* basisTransformIndices.cpp in Sources */,
-				8BE7E8E2140F7B2300A02F40 /* pfitBasis.cpp in Sources */,
-				8BE7E8E3140F7B2300A02F40 /* pfitDataSet.cpp in Sources */,
-				8BE7E8E4140F7B2300A02F40 /* FitBase.cpp in Sources */,
-				8BE7E8E5140F7B2300A02F40 /* matrix.cpp in Sources */,
-				8BE7E8E6140F7B2300A02F40 /* polyNfit.cpp in Sources */,
-				8BE7E8E7140F7B2300A02F40 /* powerBases.cpp in Sources */,
+				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
+				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
+				8B186D57158E30EF00EBF7FA /* DistortablePlane.cpp in Sources */,
+				8B186D5E158E320100EBF7FA /* ofxPolyFit.cpp in Sources */,
+				8B186D5F158E320100EBF7FA /* ofxPolyFitUtils.cpp in Sources */,
+				8B186D76158E329700EBF7FA /* basisTransformIndices.cpp in Sources */,
+				8B186D77158E329700EBF7FA /* pfitBasis.cpp in Sources */,
+				8B186D78158E329700EBF7FA /* pfitDataPoint.cpp in Sources */,
+				8B186D79158E329700EBF7FA /* pfitDataSet.cpp in Sources */,
+				8B186D7A158E329700EBF7FA /* FitBase.cpp in Sources */,
+				8B186D7B158E329700EBF7FA /* matrix.cpp in Sources */,
+				8B186D7C158E329700EBF7FA /* polyNfit.cpp in Sources */,
+				8B186D7D158E329700EBF7FA /* powerBases.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,26 +540,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/android/armeabi\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/android/armeabi-v7a\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/iphone\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/linux\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/linux64\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/osx\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/vs2010\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/win_cb\"";
-				OF_PATH = ../../..;
 				PREBINDING = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)Debug";
+				PRODUCT_NAME = "ofxPolyFitExample-VideoDistortDebug";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -600,26 +626,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_49)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/android/armeabi\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/android/armeabi-v7a\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/iphone\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/linux\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/linux64\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/osx\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/vs2010\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/win_cb\"";
-				OF_PATH = ../../..;
 				PREBINDING = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "ofxPolyFitExample-VideoDistort";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -627,7 +636,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "ofxPolyfitExample-2D" */ = {
+		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "ofxPolyFitExample-VideoDistort" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B4E0A3A1720003C02F2 /* Debug */,
@@ -636,7 +645,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "emptyExample" */ = {
+		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "ofxPolyFitExample-VideoDistort" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B600A3A1757003C02F2 /* Debug */,
