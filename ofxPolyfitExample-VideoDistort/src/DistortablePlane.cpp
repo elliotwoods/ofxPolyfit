@@ -6,7 +6,7 @@
 #include "DistortablePlane.h"
 
 DistortablePlane::DistortablePlane() :
-radius(10.0f) {
+radius(15.0f) {
 	
 	this->source = 0;
 	this->shift = false;
@@ -35,16 +35,25 @@ void DistortablePlane::draw() {
 	}
 	
 	if (this->calibrateMode) {
+		ofPushStyle();
+		ofNoFill();
+		ofEnableAlphaBlending();
+		
+		ofSetColor(255, 255, 255, 50);
 		mesh.drawWireframe();
+		ofSetColor(255, 255, 255);
 		
 		pfitDataPointf point;
 		for (point = calibration.begin(); point != calibration.end(); ++point) {
+			
 			if (selection == point)
-				ofFill();
+				ofSetLineWidth(3.0f);
 			else
-				ofNoFill();
+				ofSetLineWidth(1.0f);
+			
 			ofCircle(point.getOutput()[0], point.getOutput()[1], radius);
 		}
+		ofPopStyle();
 	}
 }
 
@@ -57,6 +66,14 @@ void DistortablePlane::setSource(ofBaseHasTexture &source) {
 
 void DistortablePlane::setCalibrateMode(const bool calibrateMode) {
 	this->calibrateMode = calibrateMode;
+}
+
+bool DistortablePlane::getCalibrateMode() const {
+	return this->calibrateMode;
+}
+
+bool DistortablePlane::toggleCalibrateMode() {
+	this->calibrateMode ^= true;
 }
 
 void DistortablePlane::setGridResolution(int resolution) {
@@ -216,6 +233,7 @@ void DistortablePlane::mouseDragged(ofMouseEventArgs &args) {
 
 void DistortablePlane::load(string filename) {
 	this->calibration.load(filename);
+	this->updateGrid();
 }
 
 void DistortablePlane::save(string filename) {

@@ -15,7 +15,11 @@ public:
 	void draw();
 
 	void setSource(ofBaseHasTexture & source);
+	
 	void setCalibrateMode(const bool calibrateMode);
+	bool getCalibrateMode() const;
+	bool toggleCalibrateMode();
+	
 	void setGridResolution(int resolution);
 	
 	//remember to call this if you change the video's resolution, or control points
@@ -42,12 +46,12 @@ public:
 protected:
 	ofxPolyFit fit;
 	ofMesh mesh;
-	ofRectangle defaultBounds;
 	
 	ofBaseHasTexture * source;
 	
 	bool calibrateMode;
 	int gridResolution;
+	ofRectangle defaultBounds;
 	
 	const float radius;
 	bool hit;
