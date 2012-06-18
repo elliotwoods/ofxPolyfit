@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "DistortablePlane.h"
+#include "ofxPolyPlane.h"
 
 class testApp : public ofBaseApp{
 
@@ -21,7 +21,7 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);		
 
-		DistortablePlane plane;
+		ofxPolyPlane plane;
 		ofVideoPlayer video;
 };
 
