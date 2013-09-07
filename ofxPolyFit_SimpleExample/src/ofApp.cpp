@@ -1,6 +1,6 @@
-#include "testApp.h"
+#include "ofApp.h"
 
-float testApp::fundamental(float x)
+float ofApp::fundamental(float x)
 {
 	//For this example, we start with a 2nd
 	//order polynomial and add some noise,
@@ -14,7 +14,7 @@ float testApp::fundamental(float x)
 }
 
 //--------------------------------------------------------------
-void testApp::setup(){
+void ofApp::setup(){
     
     ofBackground(80, 80, 80);
     ofSetWindowShape(WIDTH, HEIGHT);
@@ -36,7 +36,7 @@ void testApp::setup(){
 
 }
 
-void testApp::initialiseData()
+void ofApp::initialiseData()
 {
     
     nPoints = nNoisyPoints + nCrappyPoints;
@@ -103,12 +103,12 @@ void testApp::initialiseData()
 }
 
 //--------------------------------------------------------------
-void testApp::update(){
+void ofApp::update(){
 
 }
 
 //--------------------------------------------------------------
-void testApp::draw(){
+void ofApp::draw(){
     
     ofPushStyle();
     ofEnableSmoothing();
@@ -275,38 +275,38 @@ void testApp::draw(){
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed(int key){
+void ofApp::keyPressed(int key){
     if (key ==' ')
         initialiseData();
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased(int key){
+void ofApp::keyReleased(int key){
 
 }
 
 //--------------------------------------------------------------
-void testApp::mouseMoved(int x, int y ){
+void ofApp::mouseMoved(int x, int y ){
     mouseX = x;
 }
 
 //--------------------------------------------------------------
-void testApp::mouseDragged(int x, int y, int button){
+void ofApp::mouseDragged(int x, int y, int button){
     mouseX = x;
 }
 
 //--------------------------------------------------------------
-void testApp::mousePressed(int x, int y, int button){
+void ofApp::mousePressed(int x, int y, int button){
 
 }
 
 //--------------------------------------------------------------
-void testApp::mouseReleased(int x, int y, int button){
+void ofApp::mouseReleased(int x, int y, int button){
 
 }
 
 //--------------------------------------------------------------
-void testApp::windowResized(int w, int h){
+void ofApp::windowResized(int w, int h){
 
 }
 

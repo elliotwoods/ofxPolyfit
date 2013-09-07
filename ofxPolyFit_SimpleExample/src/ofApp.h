@@ -11,7 +11,7 @@
 #define HEIGHT 500.0f
 
 typedef double DataType;
-class testApp : public ofBaseApp{
+class ofApp : public ofBaseApp{
 
 	public:
 		void setup();

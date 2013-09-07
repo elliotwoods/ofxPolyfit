@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxPolyPlane.h"
 
-class testApp : public ofBaseApp{
+class ofApp : public ofBaseApp{
 
 	public:
 
@@ -23,5 +23,6 @@ class testApp : public ofBaseApp{
 
 		ofxPolyPlane plane;
 		ofVideoPlayer video;
+		ofVideoGrabber camera;
 };
 

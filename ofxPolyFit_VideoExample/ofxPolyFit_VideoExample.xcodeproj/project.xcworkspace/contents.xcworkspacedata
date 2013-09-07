@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ofxPolyFitExample-VideoDistort.xcodeproj">
+      location = "self:ofxPolyFit_VideoExample.xcodeproj">
    </FileRef>
 </Workspace>
