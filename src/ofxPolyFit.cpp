@@ -481,7 +481,12 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
         // Perform a fit with maybe inliers
         ////////////////////////////////////
         //
-        correlate(dataSet);
+		try {
+			correlate(dataSet);
+		} catch (...) {
+			continue;
+		}
+        
         //
         ////////////////////////////////////
         
@@ -532,7 +537,12 @@ void ofxPolyFit_<T>::RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float se
         //
 		//perform a fit with consensus set
 		dataSet.setActiveIndices(currentConsensus);
-        correlate(dataSet);
+		try {
+			correlate(dataSet);
+		} catch (...) {
+			//we should never get here to be honest.
+			continue;
+		}
 		
         currentError = residualRMS(dataSet);
         
