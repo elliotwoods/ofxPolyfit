@@ -74,6 +74,7 @@ bool ofxPolyPlane::getCalibrateMode() const {
 
 bool ofxPolyPlane::toggleCalibrateMode() {
 	this->calibrateMode ^= true;
+	return this->calibrateMode;
 }
 
 void ofxPolyPlane::setGridResolution(int resolution) {
