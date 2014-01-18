@@ -13,7 +13,6 @@
 #include <set>
 
 #include "../libs/PolyNFit/src/polyNfit.h"
-#include "ofxPolyFitUtils.h"
 
 template <typename T>
 class ofxPolyFit_
@@ -22,6 +21,7 @@ public:
 	ofxPolyFit_();
 	~ofxPolyFit_();
 	
+	///allocate local data
 	void		init(int order, int dimensionsIn, int dimensionsOut, pfitBasisType basisType = BASIS_SHAPE_TRIANGLE);
 	void        uninitialise();
     
@@ -48,9 +48,11 @@ public:
 	
 	unsigned int						nBases;
     
-    //RANSAC (experimental)
-    void        RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold);
+    ///RANSAC (experimental)
+    void RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold);
     
+	static pfitDataSetf	makeDataSet(const vector<ofVec3f> &input, const vector<ofVec3f> &output);
+
     T bestError;
 protected:
     bool    checkInitialised() const;
