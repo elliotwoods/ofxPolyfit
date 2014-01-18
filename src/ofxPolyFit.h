@@ -12,7 +12,7 @@
 #include <fstream>
 #include <set>
 
-#include "polyNfit.h"
+#include "../libs/PolyNFit/src/polyNfit.h"
 #include "ofxPolyFitUtils.h"
 
 template <typename T>
