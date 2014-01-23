@@ -14,7 +14,11 @@ _dataAllocated(false),
 _nDataPoints(0),
 _nDataPointsAllocated(0),
 _inDimensions(0),
-_outDimensions(0) {
+_outDimensions(0),
+_inData(NULL),
+_outData(NULL),
+_activeData(NULL)
+{
     
 }
 
@@ -23,18 +27,21 @@ pfitDataSet<DataType>::~pfitDataSet() {
     clear();
 }
 
-///////
-
 template<typename DataType>
-pfitDataSet<DataType>& pfitDataSet<DataType>::operator=(const pfitDataSet<DataType> &other) {
-	this->deAllocate();
+pfitDataSet<DataType>::pfitDataSet(const pfitDataSet<DataType> &other) : 
+_dataAllocated(false),
+_nDataPoints(0),
+_nDataPointsAllocated(0),
+_inDimensions(0),
+_outDimensions(0),
+_inData(NULL),
+_outData(NULL),
+_activeData(NULL) {
 	this->init(other.getInputDimensions(), other.getOutputDimensions(), other.size());
 	
 	memcpy(getInput(), other.getInput(), _nDataPoints * getInputDimensions() * sizeof(DataType));
 	memcpy(getOutput(), other.getOutput(), _nDataPoints * getOutputDimensions() * sizeof(DataType));
-	memcpy(getActive(), other.getActive(), _nDataPoints * getOutputDimensions() * sizeof(bool));
-
-	return *this;
+	memcpy(getActive(), other.getActive(), _nDataPoints * sizeof(bool));
 }
 
 ///////
@@ -85,7 +92,6 @@ void pfitDataSet<DataType>::resize(pfitIndex const size) {
     {
         //reallocate to fit new size
         allocate(1 << int(ceil(log(double(size+1))/log((double)2.0))));
-        
     }
     
     pfitIndex quarterOfAllocation = _nDataPointsAllocated >> 2;
@@ -101,14 +107,14 @@ void pfitDataSet<DataType>::resize(pfitIndex const size) {
 template<typename DataType>
 void pfitDataSet<DataType>::allocate(pfitIndex const allocation)
 {
-    if (allocation == 0)
-    {
-        deAllocate();
-        return;        
-    }
+	deAllocate();
+    
+	if (allocation == 0) {
+		return;
+	}
     
     /////////////////////
-    // MOVE DATA
+    // ALLOCATE DATA
     /////////////////////
     //
     if (_dataAllocated) {
@@ -123,16 +129,16 @@ void pfitDataSet<DataType>::allocate(pfitIndex const allocation)
     //
     /////////////////////
  
+	//update allocation flags
+	_nDataPointsAllocated = allocation;
+    _dataAllocated = true;
+
 	//default active = true for new allocated points
 	if (_nDataPointsAllocated < allocation)
 		memset(_activeData+_nDataPointsAllocated, true, allocation - _nDataPointsAllocated);
 
-		
 	//reduce dataset size if outside of allocation
     _nDataPoints = min(allocation, _nDataPoints);
-
-    _nDataPointsAllocated = allocation;
-    _dataAllocated = true;
 }
 
 template<typename DataType>
@@ -140,9 +146,9 @@ void pfitDataSet<DataType>::deAllocate()
 {
     if (_dataAllocated)
     {
-        delete[] _inData;
-        delete[] _outData;
-        delete[] _activeData;
+        free(_inData);
+        free(_outData);
+        free(_activeData);
         _dataAllocated = false;
     }
     

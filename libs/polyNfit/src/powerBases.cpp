@@ -109,6 +109,9 @@ void powerBases::calcBases()
 		
 		_renderedNDimensions = _nDimensions;
 		_renderedNPowerOrder = _nPowerOrder;
+
+		delete[] iPossibleItemX;
+
 	}  else if (_basesShape == BASIS_SHAPE_PADE_FIRST )  {
 
 		//
