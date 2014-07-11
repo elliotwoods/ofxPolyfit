@@ -14,14 +14,18 @@ _dataAllocated(false),
 _nDataPoints(0),
 _nDataPointsAllocated(0),
 _inDimensions(0),
-_outDimensions(0) {
+_outDimensions(0),
+_inData(NULL),
+_outData(NULL),
+_activeData(NULL)
+{
     
 }
 
 template<typename DataType>
 pfitDataSet<DataType>::pfitDataSet(const pfitDataSet<DataType> &other) {
 	this->_dataAllocated = false;
-
+	
 	this->init(other.getInputDimensions(), other.getOutputDimensions(), other.size());
 	
 	this->setInput(other.getInput());
@@ -80,9 +84,14 @@ void pfitDataSet<DataType>::resize(pfitIndex const size) {
     
     if (size > _nDataPointsAllocated)
     {
+		int oldAllocationSize = _nDataPointsAllocated;
         //reallocate to fit new size
         allocate(1 << int(ceil(log(double(size+1))/log((double)2.0))));
-        
+		
+		//default to active for new points
+		for(int i=_nDataPoints; i<size; i++) {
+			this->_activeData[i] = true;
+		}
     }
     
     pfitIndex quarterOfAllocation = _nDataPointsAllocated >> 2;
@@ -98,14 +107,14 @@ void pfitDataSet<DataType>::resize(pfitIndex const size) {
 template<typename DataType>
 void pfitDataSet<DataType>::allocate(pfitIndex const allocation)
 {
-    if (allocation == 0)
-    {
-        deAllocate();
-        return;        
-    }
+	deAllocate();
+    
+	if (allocation == 0) {
+		return;
+	}
     
     /////////////////////
-    // MOVE DATA
+    // ALLOCATE DATA
     /////////////////////
     //
     if (_dataAllocated) {
@@ -120,16 +129,12 @@ void pfitDataSet<DataType>::allocate(pfitIndex const allocation)
     //
     /////////////////////
  
-	//default active = true for new allocated points
-	if (_nDataPointsAllocated < allocation)
-		memset(_activeData+_nDataPointsAllocated, true, allocation - _nDataPointsAllocated);
+	//update allocation flags
+	_nDataPointsAllocated = allocation;
+    _dataAllocated = true;
 
-		
 	//reduce dataset size if outside of allocation
     _nDataPoints = min(allocation, _nDataPoints);
-
-    _nDataPointsAllocated = allocation;
-    _dataAllocated = true;
 }
 
 template<typename DataType>
@@ -137,9 +142,9 @@ void pfitDataSet<DataType>::deAllocate()
 {
     if (_dataAllocated)
     {
-        delete[] _inData;
-        delete[] _outData;
-        delete[] _activeData;
+        free(_inData);
+        free(_outData);
+        free(_activeData);
         _dataAllocated = false;
     }
     

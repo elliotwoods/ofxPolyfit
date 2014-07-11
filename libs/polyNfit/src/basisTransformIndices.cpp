@@ -86,6 +86,8 @@ void basisTransformIndices::calc()
 	
 	_renderedNDimensions = _nDimensions;
 	_renderedNPowerOrder = _nPowerOrder;
+
+	delete[] iPossibleItemX;
 }
 
 void basisTransformIndices::clear()

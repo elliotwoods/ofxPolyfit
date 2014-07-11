@@ -40,7 +40,7 @@ public:
 	pfitDataPoint<DataType>     end() const;
 	pfitIndex					size() const { return _nDataPoints; };
 
-	///Direct access to data. Generally useful for 1D case. Suggest looking into instantiating a pfitDataPoint using operator[] for accsesing data points within a set
+	///Direct access to data
 	DataType*			getInput();
 	const DataType*		getInput() const;
 	DataType*			getOutput();

@@ -1,9 +1,13 @@
+libs/
+docs/
+
 *.depend
 *.layout
 *.mode*v3
 *.pbxuser
 *.app*
 *.DS_*
+._*.*
 
 .svn/
 obj/
@@ -12,5 +16,21 @@ build/
 !data/
 xcuserdata/
 
-._*.h
-._*.cpp
+ipch/
+*.suo
+*.opensdf
+*.vcxproj.user
+*.vsxproj.filters
+
+*.obj
+*.tlog
+*.vcxproj.filters
+*.sdf
+*.pdb
+*.idb
+*.pch
+Debug/
+Release/
+
+
+*~.xml
