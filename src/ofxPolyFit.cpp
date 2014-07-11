@@ -596,6 +596,20 @@ pfitDataSetf ofxPolyFit_<T>::makeDataSet(const vector<ofVec3f> &input, const vec
 }
 
 template<typename T>
+pfitDataSetf ofxPolyFit_<T>::makeDataSet(const vector<ofVec2f> &input, const vector<ofVec2f> &output) {
+	int size = input.size();
+	if (size != output.size())
+		throw("ofxPolyfit::makeDataSet - vector input size mismatch error");
+	
+	pfitDataSetf set;
+	set.init(2, 2, size);
+	memcpy(set.getInput(), &input[0], sizeof(ofVec2f) * size);
+	memcpy(set.getOutput(), &output[0], sizeof(ofVec2f) * size);
+	
+	return set;
+}
+
+template<typename T>
 bool ofxPolyFit_<T>::checkInitialised() const
 {
     if (!_isInitialised)
