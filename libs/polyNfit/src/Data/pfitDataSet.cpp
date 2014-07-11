@@ -19,22 +19,19 @@ _outDimensions(0) {
 }
 
 template<typename DataType>
-pfitDataSet<DataType>::~pfitDataSet() {
-    clear();
-}
+pfitDataSet<DataType>::pfitDataSet(const pfitDataSet<DataType> &other) {
+	this->_dataAllocated = false;
 
-///////
-
-template<typename DataType>
-pfitDataSet<DataType>& pfitDataSet<DataType>::operator=(const pfitDataSet<DataType> &other) {
-	this->deAllocate();
 	this->init(other.getInputDimensions(), other.getOutputDimensions(), other.size());
 	
-	memcpy(getInput(), other.getInput(), _nDataPoints * getInputDimensions() * sizeof(DataType));
-	memcpy(getOutput(), other.getOutput(), _nDataPoints * getOutputDimensions() * sizeof(DataType));
-	memcpy(getActive(), other.getActive(), _nDataPoints * getOutputDimensions() * sizeof(bool));
+	this->setInput(other.getInput());
+	this->setOutput(other.getOutput());
+	this->setActive(other.getActive());
+}
 
-	return *this;
+template<typename DataType>
+pfitDataSet<DataType>::~pfitDataSet() {
+    clear();
 }
 
 ///////
@@ -194,6 +191,10 @@ void pfitDataSet<DataType>::setOutput(const DataType* data) {
 	memcpy(getOutput(), data, size() * sizeof(DataType) * getOutputDimensions());
 }
 
+template<typename DataType>
+void pfitDataSet<DataType>::setActive(const bool* data) {
+	memcpy(getActive(), data, size() * sizeof(bool));
+}
 
 ////
 
@@ -261,13 +262,13 @@ void pfitDataSet<DataType>::setActiveIndices(const pfitIndexSet& s) {
 template<typename DataType>
 void pfitDataSet<DataType>::setActiveAll() {
     checkAllocated();
-	memset(_activeData, true, _nDataPoints);
+	memset(_activeData, true, _nDataPoints * sizeof(bool));
 }
 
 template<typename DataType>
 void pfitDataSet<DataType>::setActiveNone() {
     checkAllocated();
-	memset(_activeData, false, _nDataPoints);
+	memset(_activeData, false, _nDataPoints * sizeof(bool));
 }
 
 ////

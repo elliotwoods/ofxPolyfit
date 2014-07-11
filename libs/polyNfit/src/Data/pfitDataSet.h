@@ -22,10 +22,8 @@ class pfitDataSet
 {
 public:
 	pfitDataSet();
+	pfitDataSet(const pfitDataSet<DataType> &other);
 	~pfitDataSet();
-
-	///copy data from other to here
-	pfitDataSet<DataType>& operator=(const pfitDataSet<DataType> &other);
 
 	pfitDataPoint<DataType> operator[]( pfitIndex i );
 	pfitDataPoint<DataType> operator[]( pfitIndex i ) const;
@@ -53,6 +51,7 @@ public:
 	///Copy data from existing array
 	void		setInput(const DataType* data);
 	void		setOutput(const DataType* data);
+	void		setActive(const bool* data);
 	
 	int		getInputDimensions() const;
 	int		getOutputDimensions() const;
