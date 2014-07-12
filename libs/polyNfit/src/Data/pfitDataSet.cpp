@@ -8,6 +8,8 @@
 
 #include "pfitDataSet.h"
 
+#include <algorithm>
+
 template<typename DataType>
 pfitDataSet<DataType>::pfitDataSet() :
 _dataAllocated(false),

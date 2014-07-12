@@ -95,7 +95,7 @@ void powerBases::calcBases()
 			if (present)
 			{
 				vecBasisIndices.push_back(new unsigned int[_nDimensions]);
-				idxbasisIndices = vecBasisIndices.size()-1;
+				idxbasisIndices = (int) vecBasisIndices.size()-1;
 				
 				for (int iDimension=0; iDimension<_nDimensions; iDimension++)
 				{
@@ -105,7 +105,7 @@ void powerBases::calcBases()
 			}		
 		}
 		
-		_nBases = vecBasisIndices.size();
+		_nBases = (unsigned int) vecBasisIndices.size();
 		
 		_renderedNDimensions = _nDimensions;
 		_renderedNPowerOrder = _nPowerOrder;
@@ -154,7 +154,7 @@ void powerBases::calcBases()
 		//constant
 		//
 
-		_nBases = vecBasisIndices.size();
+		_nBases = (unsigned int) vecBasisIndices.size();
 		
 		_renderedNDimensions = _nDimensions;
 		_renderedNPowerOrder = _nPowerOrder;
@@ -227,7 +227,7 @@ void powerBases::calcBases()
         vecBasisIndices[13][2]=1;
         vecBasisIndices[13][3]=1;
         
-        _nBases = vecBasisIndices.size();
+        _nBases = (unsigned int) vecBasisIndices.size();
         
         _renderedNDimensions = _nDimensions;
         _renderedNPowerOrder = _nPowerOrder;
