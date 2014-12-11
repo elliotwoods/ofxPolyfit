@@ -52,6 +52,7 @@ public:
     void RANSAC(pfitDataSet<T> &dataSet, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold);
     
 	static pfitDataSetf	makeDataSet(const vector<ofVec3f> &input, const vector<ofVec3f> &output);
+	static pfitDataSetf	makeDataSet(const vector<ofVec2f> &input, const vector<ofVec2f> &output);
 
     T bestError;
 protected:

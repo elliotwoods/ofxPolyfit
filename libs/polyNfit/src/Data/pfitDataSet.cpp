@@ -25,25 +25,19 @@ _activeData(NULL)
 }
 
 template<typename DataType>
-pfitDataSet<DataType>::~pfitDataSet() {
-    clear();
+pfitDataSet<DataType>::pfitDataSet(const pfitDataSet<DataType> &other) {
+	this->_dataAllocated = false;
+	
+	this->init(other.getInputDimensions(), other.getOutputDimensions(), other.size());
+	
+	this->setInput(other.getInput());
+	this->setOutput(other.getOutput());
+	this->setActive(other.getActive());
 }
 
 template<typename DataType>
-pfitDataSet<DataType>::pfitDataSet(const pfitDataSet<DataType> &other) : 
-_dataAllocated(false),
-_nDataPoints(0),
-_nDataPointsAllocated(0),
-_inDimensions(0),
-_outDimensions(0),
-_inData(NULL),
-_outData(NULL),
-_activeData(NULL) {
-	this->init(other.getInputDimensions(), other.getOutputDimensions(), other.size());
-	
-	memcpy(getInput(), other.getInput(), _nDataPoints * getInputDimensions() * sizeof(DataType));
-	memcpy(getOutput(), other.getOutput(), _nDataPoints * getOutputDimensions() * sizeof(DataType));
-	memcpy(getActive(), other.getActive(), _nDataPoints * sizeof(bool));
+pfitDataSet<DataType>::~pfitDataSet() {
+    clear();
 }
 
 ///////
@@ -92,8 +86,14 @@ void pfitDataSet<DataType>::resize(pfitIndex const size) {
     
     if (size > _nDataPointsAllocated)
     {
+		int oldAllocationSize = _nDataPointsAllocated;
         //reallocate to fit new size
         allocate(1 << int(ceil(log(double(size+1))/log((double)2.0))));
+		
+		//default to active for new points
+		for(int i=_nDataPoints; i<size; i++) {
+			this->_activeData[i] = true;
+		}
     }
     
     pfitIndex quarterOfAllocation = _nDataPointsAllocated >> 2;
@@ -134,10 +134,6 @@ void pfitDataSet<DataType>::allocate(pfitIndex const allocation)
 	//update allocation flags
 	_nDataPointsAllocated = allocation;
     _dataAllocated = true;
-
-	//default active = true for new allocated points
-	if (_nDataPointsAllocated < allocation)
-		memset(_activeData+_nDataPointsAllocated, true, allocation - _nDataPointsAllocated);
 
 	//reduce dataset size if outside of allocation
     _nDataPoints = min(allocation, _nDataPoints);
@@ -202,6 +198,10 @@ void pfitDataSet<DataType>::setOutput(const DataType* data) {
 	memcpy(getOutput(), data, size() * sizeof(DataType) * getOutputDimensions());
 }
 
+template<typename DataType>
+void pfitDataSet<DataType>::setActive(const bool* data) {
+	memcpy(getActive(), data, size() * sizeof(bool));
+}
 
 ////
 
@@ -269,13 +269,13 @@ void pfitDataSet<DataType>::setActiveIndices(const pfitIndexSet& s) {
 template<typename DataType>
 void pfitDataSet<DataType>::setActiveAll() {
     checkAllocated();
-	memset(_activeData, true, _nDataPoints);
+	memset(_activeData, true, _nDataPoints * sizeof(bool));
 }
 
 template<typename DataType>
 void pfitDataSet<DataType>::setActiveNone() {
     checkAllocated();
-	memset(_activeData, false, _nDataPoints);
+	memset(_activeData, false, _nDataPoints * sizeof(bool));
 }
 
 ////
