@@ -213,7 +213,9 @@ void ofxPolyFit_<T>::evaluate(pfitDataSet<T> &dataSet, bool checkData) const
 template <typename T>
 T ofxPolyFit_<T>::evaluate(T input) const
 {
-    checkInitialised();
+	if (!checkInitialised()) {
+		return T();
+	}
     
     //1D special case
     
